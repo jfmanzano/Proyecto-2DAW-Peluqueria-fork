@@ -19,6 +19,7 @@ class ArticleSeeder extends Seeder
             'descripcion' => 'es un champú de la marca Pantene para hombres.',
             'disponible'=>'SI',
             'imagen' => 'champupantene.png',
+            'precio' => 20 ,
             'marca_id'=> '1', //La id de Pantene es 1 (es una prueba creada manualmente)
             'category_id'=> '1',
         ]);
@@ -27,6 +28,7 @@ class ArticleSeeder extends Seeder
             'descripcion' => 'es un champú de la marca Garnier para mujeres.',
             'disponible'=>'SI',
             'imagen' => 'champugarnier.jpeg',
+            'precio' => 15 ,
             'marca_id'=> '2', //La id de Garnier es 2 (es una prueba creada manualmente)
             'category_id'=> '2',
         ]);

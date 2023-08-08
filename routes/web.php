@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\ShowCategories;
+use App\Http\Livewire\ShowMarcas;
 use App\Models\Marca;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,5 @@ Route::middleware([
     return view('dashboard', compact('marcas'));
     })->name('dashboard');
     Route::get('/categories', ShowCategories::class)->name('categorias.show');
+    Route::get('/marcas', ShowMarcas::class)->name('marcas.show');
 });

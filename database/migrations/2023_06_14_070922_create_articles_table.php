@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('descripcion');
             $table->enum('disponible',['SI','NO']);
             $table->string('imagen');
+            $table->float('precio', 5, 2);
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('marca_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,5 +27,10 @@ class DatabaseSeeder extends Seeder
         $this->call(MarcaSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(ArticleSeeder::class);
+
+        Storage::deleteDirectory('imagenesmarcas');
+        Storage::makeDirectory('imagenesmarcas');
+        Storage::deleteDirectory('imagenesarticulos');
+        Storage::makeDirectory('imagenesarticulos');
     }
 }
