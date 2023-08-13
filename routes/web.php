@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\ShowArticles;
 use App\Http\Livewire\ShowCategories;
 use App\Http\Livewire\ShowMarcas;
 use App\Models\Marca;
@@ -32,4 +33,5 @@ Route::middleware([
     })->name('dashboard');
     Route::get('/categories', ShowCategories::class)->name('categorias.show');
     Route::get('/marcas', ShowMarcas::class)->name('marcas.show');
+    Route::get('/articles', ShowArticles::class)->name('articulos.show');
 });

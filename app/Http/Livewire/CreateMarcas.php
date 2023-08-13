@@ -44,7 +44,7 @@ class CreateMarcas extends Component
             'imagen'=>$imagen
         ]);
 
-        $this->reset(["openCrear","nombre","descripcion"]);
+        $this->reset(["openCrear","nombre","descripcion","imagen"]);
         $this->emitTo("show-marcas","refreshMarcas");
         $this->emit("mensaje", "Marca Creada");
     }

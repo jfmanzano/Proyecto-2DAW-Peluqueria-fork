@@ -55,7 +55,7 @@
             </div>
         </div>
     @else
-        <p class="font-bold italic text-red-600">No se encontró ninguna categoría o no se ha creado ninguna</p>
+        <p class="font-bold italic text-red-600">No se encontró ninguna marca o no se ha creado ninguna</p>
     @endif
     <!--Modal para editar-->
     @if ($miMarca)

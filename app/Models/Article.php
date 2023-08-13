@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Article extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre','descripcion','disponible','imagen','category_id','marca_id'];
+    protected $fillable = ['nombre','descripcion','disponible','precio','imagen','category_id','marca_id'];
     
     public function marca(){
         return $this->belongsTo(Marca::class);

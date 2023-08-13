@@ -91,6 +91,22 @@
                 }
             })
         })
+
+        Livewire.on('permisoBorrar3', articleId => {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡Esta acción no se podrá revertir!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, bórralo!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emitTo('show-articles','borrarArticulo', articleId)
+                }
+            })
+        })
     </script>
 </body>
 

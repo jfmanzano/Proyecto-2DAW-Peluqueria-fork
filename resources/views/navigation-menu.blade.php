@@ -21,6 +21,9 @@
                         <x-nav-link :href="route('marcas.show')" :active="request()->routeIs('marcas.show')" title="Gestionar Marcas">
                             <i class="fa-solid fa-briefcase"></i>
                         </x-nav-link>
+                        <x-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')" title="Gestionar Artículos">
+                            <i class="fa-solid fa-tags"></i>
+                        </x-nav-link>
                     @endauth
                 </div>
             </div>
@@ -119,6 +122,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('marcas.show')" :active="request()->routeIs('marcas.show')">
                 <i class="fa-solid fa-briefcase"></i> Gestionar Marcas
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')">
+                <i class="fa-solid fa-tags"></i> Gestionar Artículos
             </x-responsive-nav-link>
         </div>
         <!-- Responsive Settings Options -->

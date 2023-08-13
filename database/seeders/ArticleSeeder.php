@@ -26,7 +26,7 @@ class ArticleSeeder extends Seeder
         Article::create([
             'nombre' => 'Champu Garnier',
             'descripcion' => 'es un champú de la marca Garnier para mujeres.',
-            'disponible'=>'SI',
+            'disponible'=>'NO',
             'imagen' => 'champugarnier.jpeg',
             'precio' => 15 ,
             'marca_id'=> '2', //La id de Garnier es 2 (es una prueba creada manualmente)
