@@ -27,6 +27,9 @@
                         <x-nav-link :href="route('citas.show')" :active="request()->routeIs('citas.show')" title="Gestionar Citas">
                             <i class="fa-solid fa-address-book"></i>
                         </x-nav-link>
+                        <x-nav-link :href="route('contacto.pintar')" :active="request()->routeIs('contacto.pintar')" title="Correo Contacto">
+                            <i class="fa-solid fa-envelope"></i>
+                        </x-nav-link>
                     @endauth
                 </div>
             </div>
@@ -131,6 +134,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('citas.show')" :active="request()->routeIs('citas.show')">
                 <i class="fa-solid fa-address-book"></i> Gestionar Citas
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('contacto.pintar')" :active="request()->routeIs('contacto.pintar')">
+                <i class="fa-solid fa-envelope"></i> Correo Contacto
             </x-responsive-nav-link>
         </div>
         <!-- Responsive Settings Options -->

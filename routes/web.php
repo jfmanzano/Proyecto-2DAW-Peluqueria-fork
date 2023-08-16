@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use App\Http\Livewire\ShowArticles;
 use App\Http\Livewire\ShowCategories;
 use App\Http\Livewire\ShowCitas;
@@ -37,3 +38,6 @@ Route::middleware([
     Route::get('/articles', ShowArticles::class)->name('articulos.show');
     Route::get('/citas', ShowCitas::class)->name('citas.show');
 });
+
+Route::get('contacto',[MailController::class, 'pintarFormulario'])->name('contacto.pintar');
+Route::post('contacto',[MailController::class, 'procesarFormulario'])->name('contacto.procesar');
