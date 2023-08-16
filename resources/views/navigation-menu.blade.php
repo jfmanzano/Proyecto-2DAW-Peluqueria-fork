@@ -24,6 +24,9 @@
                         <x-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')" title="Gestionar Artículos">
                             <i class="fa-solid fa-tags"></i>
                         </x-nav-link>
+                        <x-nav-link :href="route('citas.show')" :active="request()->routeIs('citas.show')" title="Gestionar Citas">
+                            <i class="fa-solid fa-address-book"></i>
+                        </x-nav-link>
                     @endauth
                 </div>
             </div>
@@ -125,6 +128,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')">
                 <i class="fa-solid fa-tags"></i> Gestionar Artículos
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('citas.show')" :active="request()->routeIs('citas.show')">
+                <i class="fa-solid fa-address-book"></i> Gestionar Citas
             </x-responsive-nav-link>
         </div>
         <!-- Responsive Settings Options -->

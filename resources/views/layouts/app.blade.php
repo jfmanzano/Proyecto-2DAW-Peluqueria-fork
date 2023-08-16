@@ -107,6 +107,22 @@
                 }
             })
         })
+
+        Livewire.on('permisoBorrar4', citaId => {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡Esta acción no se podrá revertir!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, bórralo!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emitTo('show-citas','borrarCita', citaId)
+                }
+            })
+        })
     </script>
 </body>
 

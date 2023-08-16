@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha');
-            $table->enum('tipo',['Pelado','Lavado']);
+            $table->string('fecha')->unique();
+            $table->enum('tipo',['Pelado','Lavado','Tinte','Peinado']);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
