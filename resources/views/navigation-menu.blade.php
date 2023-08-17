@@ -27,10 +27,10 @@
                         <x-nav-link :href="route('citas.show')" :active="request()->routeIs('citas.show')" title="Gestionar Citas">
                             <i class="fa-solid fa-address-book"></i>
                         </x-nav-link>
-                        <x-nav-link :href="route('contacto.pintar')" :active="request()->routeIs('contacto.pintar')" title="Correo Contacto">
-                            <i class="fa-solid fa-envelope"></i>
-                        </x-nav-link>
                     @endauth
+                    <x-nav-link :href="route('contacto.pintar')" :active="request()->routeIs('contacto.pintar')" title="Correo Contacto">
+                        <i class="fa-solid fa-envelope"></i>
+                    </x-nav-link>
                 </div>
             </div>
             <!-- Settings Dropdown -->
@@ -120,21 +120,23 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                <i class="fa-solid fa-house"></i> Dashboard
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('categorias.show')" :active="request()->routeIs('categorias.show')">
-                <i class="fa-solid fa-magnifying-glass"></i> Gestionar Categorías
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('marcas.show')" :active="request()->routeIs('marcas.show')">
-                <i class="fa-solid fa-briefcase"></i> Gestionar Marcas
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')">
-                <i class="fa-solid fa-tags"></i> Gestionar Artículos
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('citas.show')" :active="request()->routeIs('citas.show')">
-                <i class="fa-solid fa-address-book"></i> Gestionar Citas
-            </x-responsive-nav-link>
+            @auth
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <i class="fa-solid fa-house"></i> Dashboard
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('categorias.show')" :active="request()->routeIs('categorias.show')">
+                    <i class="fa-solid fa-magnifying-glass"></i> Gestionar Categorías
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('marcas.show')" :active="request()->routeIs('marcas.show')">
+                    <i class="fa-solid fa-briefcase"></i> Gestionar Marcas
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')">
+                    <i class="fa-solid fa-tags"></i> Gestionar Artículos
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('citas.show')" :active="request()->routeIs('citas.show')">
+                    <i class="fa-solid fa-address-book"></i> Gestionar Citas
+                </x-responsive-nav-link>
+            @endauth
             <x-responsive-nav-link :href="route('contacto.pintar')" :active="request()->routeIs('contacto.pintar')">
                 <i class="fa-solid fa-envelope"></i> Correo Contacto
             </x-responsive-nav-link>

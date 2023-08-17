@@ -7,10 +7,12 @@ use Livewire\Component;
 use Livewire\WithPagination;
 //Librería que utilizo para sacar fecha actual del sistema
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ShowCitas extends Component
 {
     use WithPagination;
+    use AuthorizesRequests; //Esto es necesario para las políticas
 
     public string $buscar = "", $campo="fecha", $orden="desc";
     public bool $openEditar = false;
@@ -40,6 +42,8 @@ class ShowCitas extends Component
     }
 
     public function borrar(Cita $cita){
+        //Llamamos al método delete de CitaPolicy y le pasamos la cita
+        $this->authorize('delete',$cita);
         //Borramos el registro de la base de datos
         $cita->delete();
         //Emitimos un mensaje
@@ -52,6 +56,8 @@ class ShowCitas extends Component
     }
 
     public function editar(Cita $miCita){
+        //Llamamos al método update de CitaPolicy y le pasamos la cita
+        $this->authorize('update',$miCita);
         $this->miCita = $miCita;
         $this->openEditar = true;
     }

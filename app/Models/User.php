@@ -23,10 +23,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    //Añadimos los campos de redes sociales
     protected $fillable = [
         'name',
         'email',
         'password',
+        'avatar',
+        'external_id',
+        'external_auth',
     ];
 
     /**
