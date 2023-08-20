@@ -1,16 +1,18 @@
 <div>
-    <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-    wire:click="$set('openCrear', true)">
-        <i class="fas fa-add"></i> Nuevo
-    </button>
+    <div class="flex flex-row-reverse mx-6 my-auto">
+        <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+            wire:click="$set('openCrear', true)">
+            <i class="fas fa-add"></i> Nuevo
+        </button>
+    </div>
     <x-dialog-modal wire:model="openCrear">
         <x-slot name="title">
             Crear Marca
         </x-slot>
         <x-slot name="content">
             @wire('defer')
-            <x-form-input name="nombre" id="nombre" label="Nombre de la categoría" />
-            <x-form-textarea name="descripcion" id="descripcion" label="Descripción" />
+                <x-form-input name="nombre" id="nombre" label="Nombre de la categoría" />
+                <x-form-textarea name="descripcion" id="descripcion" label="Descripción" />
             @endwire
             <div class="mt-2 relative">
                 @if ($imagen)
@@ -26,9 +28,9 @@
                 @endif
                 <input id="imgCrear" type="file" name="imagen" wire:model="imagen" accept="image/*"
                     class="hidden" />
-                    @error('imagen')
-                    <p class="text-xs text-red-500 mt-2 italic">{{$message}}</p>
-                    @enderror
+                @error('imagen')
+                    <p class="text-xs text-red-500 mt-2 italic">{{ $message }}</p>
+                @enderror
             </div>
         </x-slot>
         <x-slot name="footer">

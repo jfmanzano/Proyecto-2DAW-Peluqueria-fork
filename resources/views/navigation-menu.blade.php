@@ -15,15 +15,18 @@
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" title="Dashboard">
                             <i class="fa-solid fa-house"></i>
                         </x-nav-link>
-                        <x-nav-link :href="route('categorias.show')" :active="request()->routeIs('categorias.show')" title="Gestionar Categorías">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </x-nav-link>
-                        <x-nav-link :href="route('marcas.show')" :active="request()->routeIs('marcas.show')" title="Gestionar Marcas">
-                            <i class="fa-solid fa-briefcase"></i>
-                        </x-nav-link>
-                        <x-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')" title="Gestionar Artículos">
-                            <i class="fa-solid fa-tags"></i>
-                        </x-nav-link>
+                        @if(auth()->user()->is_admin)
+                            <x-nav-link :href="route('categorias.show')" :active="request()->routeIs('categorias.show')" title="Gestionar Categorías">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </x-nav-link>
+                            <x-nav-link :href="route('marcas.show')" :active="request()->routeIs('marcas.show')" title="Gestionar Marcas">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </x-nav-link>
+                            <x-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')" title="Gestionar Artículos">
+                                <i class="fa-solid fa-tags"></i>
+                            </x-nav-link>
+                            
+                        @endif
                         <x-nav-link :href="route('citas.show')" :active="request()->routeIs('citas.show')" title="Gestionar Citas">
                             <i class="fa-solid fa-address-book"></i>
                         </x-nav-link>
@@ -124,15 +127,17 @@
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     <i class="fa-solid fa-house"></i> Dashboard
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('categorias.show')" :active="request()->routeIs('categorias.show')">
-                    <i class="fa-solid fa-magnifying-glass"></i> Gestionar Categorías
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('marcas.show')" :active="request()->routeIs('marcas.show')">
-                    <i class="fa-solid fa-briefcase"></i> Gestionar Marcas
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')">
-                    <i class="fa-solid fa-tags"></i> Gestionar Artículos
-                </x-responsive-nav-link>
+                @if(auth()->user()->is_admin)
+                    <x-responsive-nav-link :href="route('categorias.show')" :active="request()->routeIs('categorias.show')">
+                        <i class="fa-solid fa-magnifying-glass"></i> Gestionar Categorías
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('marcas.show')" :active="request()->routeIs('marcas.show')">
+                        <i class="fa-solid fa-briefcase"></i> Gestionar Marcas
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')">
+                        <i class="fa-solid fa-tags"></i> Gestionar Artículos
+                    </x-responsive-nav-link>   
+                @endif
                 <x-responsive-nav-link :href="route('citas.show')" :active="request()->routeIs('citas.show')">
                     <i class="fa-solid fa-address-book"></i> Gestionar Citas
                 </x-responsive-nav-link>

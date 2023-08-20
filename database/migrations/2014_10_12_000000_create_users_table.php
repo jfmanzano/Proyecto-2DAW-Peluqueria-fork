@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('is_admin')->default(0); // Al ser 0 digo que los usuarios no son admin
+            $table->boolean('is_admin')->default(false); // Al ser false digo que los usuarios no son admin
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

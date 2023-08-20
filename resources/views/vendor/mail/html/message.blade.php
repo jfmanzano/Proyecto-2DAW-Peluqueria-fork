@@ -21,7 +21,7 @@
 {{-- Footer --}}
 <x-slot:footer>
 <x-mail::footer>
-© {{ date('Y') }} Peluquerías DBarb. @lang('DBarb.')
+© {{ date('Y') }} Peluquerías DBarb. @lang('All rights reserved')
 </x-mail::footer>
 </x-slot:footer>
 </x-mail::layout>

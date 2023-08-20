@@ -1,25 +1,32 @@
 <x-miscomponentes.tablas>
-    <div class="flex w-full mb-2">
-        <div class="w-full flex-1">
-            <x-input type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
+    <div class="flex mb-3">
+        <div class="flex-1">
+            <x-input class="w-full" type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
         </div>
-        <div class="ml-4">
+        <div>
             @livewire('create-marcas')
         </div>
     </div>
     @if ($marcas->count())
         <div class="relative overflow-x-auto">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table
+                class="table-auto border-collapse border border-slate-500
+                text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead
+                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700
+                 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-3 py-3 cursor-pointer" wire:click="ordenar('nombre')">
+                        <th scope="col" class="text-center py-3 cursor-pointer border border-slate-600"
+                            wire:click="ordenar('nombre')">
                             <i class="fas fa-sort mr-2"></i> Nombre
                         </th>
-                        <th scope="col" class="px-6 py-3"> Descripcion
+                        <th scope="col" class="text-center py-3 border border-slate-600">
+                            Descripcion
                         </th>
-                        <th scope="col" class="px-6 py-3"> Imagen
+                        <th scope="col" class="text-center py-3 border border-slate-600">
+                            Imagen
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="text-center py-3 border border-slate-600">
                             Acciones
                         </th>
                     </tr>
@@ -27,18 +34,18 @@
                 <tbody>
                     @foreach ($marcas as $item)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="px-6 py-4">
+                            <td class="text-center border border-slate-700">
                                 {{ $item->nombre }}
                             </td>
-                            <td class="px-6 py-4 ">
+                            <td class="text-center border border-slate-700">
                                 <p class="px-2 py-2 rounded-md text-gray-400 font-bold">
                                     {{ $item->descripcion }}</p>
                             </td>
-                            <td class="px-6 py-4 ">
+                            <td class="border border-slate-700">
                                 <img src="{{ Storage::url($item->imagen) }}" alt="imagen de {{ $item->nombre }}"
-                                    style="width: 70%; height:70%">
+                                    class="mx-auto w-1/2">
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="text-center border border-slate-700">
                                 <button wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled">
                                     <i class="fas fa-trash text-red-600"></i>
                                 </button>
@@ -75,7 +82,8 @@
                             Cambiar Imagen</button>
                         <img class="object-center object-cover border-lg" src="{{ $imagen->temporaryUrl() }}" />
                     @else
-                        <img src="{{ Storage::url($miMarca->imagen) }}" class="object-center object-cover border-dashed">
+                        <img src="{{ Storage::url($miMarca->imagen) }}"
+                            class="object-center object-cover border-dashed">
                         <label for="imgEditar"
                             class="absolute bottom-2 right-2 bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">Imagen</label>
                     @endif

@@ -36,10 +36,18 @@ Route::middleware([
     ->paginate(2);
     return view('dashboard', compact('marcas'));
     })->name('dashboard');
+    Route::get('/citas', ShowCitas::class)->name('citas.show');
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'is_admin'
+])->group(function () {
     Route::get('/categories', ShowCategories::class)->name('categorias.show');
     Route::get('/marcas', ShowMarcas::class)->name('marcas.show');
     Route::get('/articles', ShowArticles::class)->name('articulos.show');
-    Route::get('/citas', ShowCitas::class)->name('citas.show');
 });
 
 //Rutas para formulario de contacto
