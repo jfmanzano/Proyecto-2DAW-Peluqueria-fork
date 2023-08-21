@@ -1,8 +1,10 @@
 <div>
-    <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-    wire:click="$set('openCrear', true)">
-        <i class="fas fa-add"></i> Nuevo
-    </button>
+    <div class="flex flex-row-reverse mx-6 my-auto">
+        <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+            wire:click="$set('openCrear', true)">
+            <i class="fas fa-add"></i> Nuevo
+        </button>
+    </div>
     <x-dialog-modal wire:model="openCrear">
         <x-slot name="title">
             Crear Artículo

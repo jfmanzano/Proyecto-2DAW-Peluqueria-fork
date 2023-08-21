@@ -1,26 +1,30 @@
 <x-miscomponentes.tablas>
-    <div class="flex w-full mb-2">
-        <div class="w-full flex-1">
-            <x-input type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
+    <div class="flex mb-3">
+        <div class="flex-1">
+            <x-input class="w-full" type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
         </div>
-        <div class="ml-4">
+        <div>
             @livewire('create-citas')
         </div>
     </div>
     @if ($citas->count())
         <div class="relative overflow-x-auto">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <table class="w-full text-center border-collapse border border-slate-500 
+                text-sm text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-3 py-3 cursor-pointer" wire:click="ordenar('fecha')">
+                        <th scope="col" class="py-3 cursor-pointer border border-slate-600" 
+                        wire:click="ordenar('fecha')">
                             <i class="fas fa-sort mr-2"></i> Fecha y Hora
                         </th>
-                        <th scope="col" class="px-3 py-3 cursor-pointer" wire:click="ordenar('tipo')">
+                        <th scope="col" class="py-3 cursor-pointer border border-slate-600" 
+                        wire:click="ordenar('tipo')">
                             <i class="fas fa-sort mr-2"></i> Tipo
                         </th>
-                        <th scope="col" class="px-6 py-3"> Nombre de Usuario
+                        <th scope="col" class="py-3 border border-slate-600">
+                            Nombre de Usuario
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="py-3 border border-slate-600">
                             Acciones
                         </th>
                     </tr>
@@ -28,17 +32,17 @@
                 <tbody>
                     @foreach ($citas as $item)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="px-6 py-4">
+                            <td class="py-4 border border-slate-700">
                                 {{ $item->fecha }}
                             </td>
-                            <td class="px-6 py-4 ">
+                            <td class="py-4 border border-slate-700">
                                 {{ $item->tipo }}
                             </td>
-                            <td class="px-6 py-4 ">
+                            <td class="py-4 border border-slate-700">
                                 <p class="px-2 py-2 rounded-md text-gray-400 font-bold">
                                     {{ $item->user->name }}</p>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="py-4 border border-slate-700">
                                 <button wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled">
                                     <i class="fas fa-trash text-red-600"></i>
                                 </button>

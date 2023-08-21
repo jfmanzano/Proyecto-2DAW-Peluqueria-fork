@@ -1,29 +1,33 @@
 <x-miscomponentes.tablas>
-    <div class="flex w-full mb-2">
-        <div class="w-full flex-1">
-            <x-input type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
+    <div class="flex mb-3">
+        <div class="flex-1">
+            <x-input class="w-full" type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
         </div>
-        <div class="ml-4">
+        <div>
             @livewire('create-articles')
         </div>
     </div>
     @if ($articulos->count())
         <div class="relative overflow-x-auto">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <table
+                class="w-full border-collapse border border-slate-500 text-center
+                text-sm text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-3 py-3">
+                        <th scope="col" class="py-3">
                             Detalle
                         </th>
-                        <th scope="col" class="px-3 py-3 cursor-pointer" wire:click="ordenar('nombre')">
+                        <th scope="col" class="py-3 cursor-pointer border border-slate-600"
+                            wire:click="ordenar('nombre')">
                             <i class="fas fa-sort mr-2"></i> Nombre
                         </th>
-                        <th scope="col" class="px-3 py-3 cursor-pointer" wire:click="ordenar('disponible')">
+                        <th scope="col" class="py-3 cursor-pointer border border-slate-600"
+                            wire:click="ordenar('disponible')">
                             <i class="fas fa-sort mr-2"></i> Disponible
                         </th>
-                        <th scope="col" class="px-6 py-3"> Precio
+                        <th scope="col" class="py-3 border border-slate-600"> Precio
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="py-3 border border-slate-600">
                             Acciones
                         </th>
                     </tr>
@@ -31,27 +35,28 @@
                 <tbody>
                     @foreach ($articulos as $item)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="px-6 py-4">
+                            <td class="w-1/5 py-4 border border-slate-700">
                                 <button wire:click="detalle ({{ $item }})"
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     <i class="fas fa-info"></i>
                                 </button>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="w-1/5 py-4 border border-slate-700">
                                 {{ $item->nombre }}
                             </td>
-                            <td class="px-6 py-4 ">
+                            <td class="w-1/5 py-4 border border-slate-700 cursor-pointer" 
+                            wire:click="cambiarDisponibilidad('{{ $item->id }}')">
                                 <p><span @class([
-                                    'px-6 py-4 rounded-md',
-                                    'bg-red-600 font-bold line-through' => $item->disponible == 'NO',
-                                    'bg-green-600 font-bold' => $item->disponible == 'SI',
+                                    'py-2 rounded-md',
+                                    'text-red-600 font-bold line-through' => $item->disponible == 'NO',
+                                    'text-green-600 font-bold' => $item->disponible == 'SI',
                                 ])>{{ $item->disponible }}</span></p>
                             </td>
-                            <td class="px-6 py-4 ">
+                            <td class="w-1/5 py-4 border border-slate-700">
                                 <p class="px-2 py-2 rounded-md text-gray-400 font-bold">
                                     {{ $item->precio }} €</p>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="w-1/5 py-4 border border-slate-700">
                                 <button wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled">
                                     <i class="fas fa-trash text-red-600"></i>
                                 </button>
@@ -80,8 +85,6 @@
             <x-slot name="content">
                 <div class="flex justify-center">
                     <div class="rounded-lg shadow-lg bg-white max-w-sm">
-                        <img class="rounded-t-lg" src="{{ Storage::url($articulo->imagen) }}"
-                            alt="imagen de {{ $articulo->nombre }}" />
                         <div class="p-6">
                             <h5 class="text-gray-900 text-xl font-medium mb-2">Nombre del artículo: <br>
                                 {{ $articulo->nombre }}</h5>
@@ -105,6 +108,8 @@
                             <p class="text-gray-700 text-base mb-4">
                                 Marca: {{ $articulo->marca->nombre }}
                             </p>
+                            <img class="rounded-t-lg" src="{{ Storage::url($articulo->imagen) }}"
+                                alt="imagen de {{ $articulo->nombre }}" />
                         </div>
                     </div>
                 </div>
@@ -134,8 +139,7 @@
                         <x-form-radio name="miArticulo.disponible" value="SI" label="Si" />
                         <x-form-radio name="miArticulo.disponible" value="NO" label="No" />
                     </x-form-group>
-                    <x-form-input name="miArticulo.precio" type="number" step="0.01"
-                     label="Precio del artículo" />
+                    <x-form-input name="miArticulo.precio" type="number" step="0.01" label="Precio del artículo" />
                     <x-form-select name="miArticulo.category_id" :options="$categories" label="Categoría" />
                     <x-form-select name="miArticulo.marca_id" :options="$marcas" label="Marca" />
                 @endwire
@@ -146,7 +150,8 @@
                             Cambiar Imagen</button>
                         <img class="object-center object-cover border-lg" src="{{ $imagen->temporaryUrl() }}" />
                     @else
-                        <img src="{{ Storage::url($miArticulo->imagen) }}" class="object-center object-cover border-dashed">
+                        <img src="{{ Storage::url($miArticulo->imagen) }}"
+                            class="object-center object-cover border-dashed">
                         <label for="imgEditar"
                             class="absolute bottom-2 right-2 bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">Imagen</label>
                     @endif
@@ -160,7 +165,7 @@
             <x-slot name="footer">
                 <div class="flex flex-row-reverse">
                     <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                    wire:click="$set('openEditar', false)">
+                        wire:click="$set('openEditar', false)">
                         <i class="fas fa-xmark mr-2"></i>Cancelar
                     </button>
                     <button class="mr-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"

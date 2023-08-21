@@ -99,4 +99,12 @@ class ShowArticles extends Component
         $this->emit('mensaje', 'Artículo Actualizado');
         $this->reset(['openEditar', 'imagen']);
     }
+
+    public function cambiarDisponibilidad(Article $article){
+        $disponibilidad=($article->disponible=="SI") ? "NO" : "SI";
+        $article->update([
+            'disponible'=>$disponibilidad,
+        ]);
+        $this->emit("mensaje", "Se cambió la disponibilidad del artículo");
+    }
 }

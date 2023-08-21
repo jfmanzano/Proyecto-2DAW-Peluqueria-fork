@@ -1,24 +1,25 @@
 <x-miscomponentes.tablas>
-    <div class="flex w-full mb-2">
-        <div class="w-full flex-1">
-            <x-input type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
+    <div class="flex mb-3">
+        <div class="flex-1">
+            <x-input class="w-full" type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
         </div>
-        <div class="ml-4">
+        <div>
             @livewire('create-categories')
         </div>
     </div>
     @if ($categorias->count())
         <div class="relative overflow-x-auto">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table
+                class="w-full text-center border-collapse border border-slate-500 
+                text-sm text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700
+                 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('nombre')">
+                        <th scope="col" class="py-3 cursor-pointer border border-slate-600"
+                            wire:click="ordenar('nombre')">
                             <i class="fas fa-sort mr-2"></i> Nombre
                         </th>
-                        <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('color')">
-                            <i class="fas fa-sort mr-2"></i> Color
-                        </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="py-3 border border-slate-600">
                             Acciones
                         </th>
                     </tr>
@@ -26,15 +27,10 @@
                 <tbody>
                     @foreach ($categorias as $item)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="px-6 py-4">
-                                {{ $item->nombre }}
+                            <td style="background-color: {{ $item->color }}">
+                                <span @class(['px-2 rounded-xl bg-gray-700 border border-slate-700'])>{{ $item->nombre }}</span>
                             </td>
-                            <td class="px-6 py-4">
-                                <p class="px-2 py-2 rounded-md text-gray-800 font-bold"
-                                    style="background-color:{{ $item->color }}">
-                                    {{ $item->nombre }}</p>
-                            </td>
-                            <td class="px-6 py-4">
+                            <td class="py-4 border border-slate-700">
                                 <button wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled">
                                     <i class="fas fa-trash text-red-600"></i>
                                 </button>
