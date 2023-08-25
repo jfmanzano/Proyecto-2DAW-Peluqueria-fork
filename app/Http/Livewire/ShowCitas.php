@@ -18,12 +18,15 @@ class ShowCitas extends Component
     public bool $openEditar = false;
     public Cita $miCita;
 
+    // Variable que recibe los mensajes de la vista
     protected $listeners = [
         'refreshCitas' => 'render',
         'borrarCita' => 'borrar'
     ];
     public function render()
     {
+        // En el render compruebo que si el usuario es admin puede ver las citas de todos los usuarios
+        // y si no es admin solo puede ver las suyas
         if (auth()->user()->is_admin) {
             $citas = Cita::where('fecha', 'like', "%{$this->buscar}%")
                 ->orderBy($this->campo, $this->orden)
@@ -34,11 +37,13 @@ class ShowCitas extends Component
                 ->orderBy($this->campo, $this->orden)
                 ->paginate(2);
         }
+        // Aquí recojo la fecha actual para el editar con la librería Carbon
         $fechaActual = Carbon::now();
         $fechaActual = $fechaActual->format('d/m/Y H:i');
         return view('livewire.show-citas', compact('citas', 'fechaActual'));
     }
 
+    //Función para ordenar el contenido de la tabla
     public function ordenar(string $campo)
     {
         $this->orden = ($this->orden == "asc") ? "desc" : "asc";
@@ -61,11 +66,13 @@ class ShowCitas extends Component
         return redirect('/citas');
     }
 
+    // Función para preguntar primero si se quiere borrar la cita
     public function confirmar(Cita $cita)
     {
         $this->emit('permisoBorrar4', $cita->id);
     }
 
+    // Función para abrir la ventana modal del editar
     public function editar(Cita $miCita)
     {
         //Llamamos al método update de CitaPolicy y le pasamos la cita
@@ -76,6 +83,9 @@ class ShowCitas extends Component
 
     protected function rules(): array
     {
+        // Validaciones
+        //Aquí meto la variable fechaActual para que compruebe que no se editen citas 
+        // con fecha anterior al día de hoy
         $fechaActual = Carbon::now()->tz('Europe/Madrid');
         $fechaActual = $fechaActual->format('d/m/Y H:i');
         return [

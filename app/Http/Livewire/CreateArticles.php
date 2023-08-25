@@ -8,6 +8,7 @@ use App\Models\Marca;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\File;
 
 class CreateArticles extends Component
 {
@@ -19,6 +20,7 @@ class CreateArticles extends Component
 
     public function render()
     {
+        // En el render creo un array de categorías y de marcas para que aparezca en el formulario
         $categories = Category::all()->pluck('nombre', 'id')->toArray();
         $categories[0]='______ Elige una categoría _____';
         ksort($categories);
@@ -30,7 +32,7 @@ class CreateArticles extends Component
 
     protected function rules(): array
     {
-        
+        // Validaciones
         return [
             'nombre' => ['required', 'string', 'min:3', 'unique:categories,nombre'],
             'descripcion' => ['required','string', 'min:10'],
@@ -42,15 +44,16 @@ class CreateArticles extends Component
         ];
     }
 
+    // Función para abrir la ventana modal
     public function openCrear(){
         $this->openCrear = true;
     }
 
     public function guardar(){
         $this->validate();
-        //Guardamos la imagen
+        // Guardamos la imagen
         $imagen = $this->imagen->store('imagenesarticulos');
-        //Guardamos la marca
+        // Guardamos el artículo
         Article::create([
             'nombre'=>$this->nombre,
             'descripcion'=>$this->descripcion,
@@ -60,12 +63,16 @@ class CreateArticles extends Component
             'category_id'=>$this->category_id,
             'marca_id'=>$this->marca_id
         ]);
+        // Cuando creo un artículo me aparece una carpeta temporal que no se borra,
+        // utilizo esta línea para borrarlo
+        File::deleteDirectory(storage_path('app/public/livewire-tmp'));
 
         $this->reset(["openCrear","nombre","descripcion","disponible","precio","imagen","category_id","marca_id"]);
         $this->emitTo("show-articles","refreshArticulos");
         $this->emit("mensaje", "Artículo Creado");
     }
 
+    // Función para cerrar la ventana modal si se pulsa el botón cancelar
     public function cerrar(){
         $this->reset(["openCrear","nombre","descripcion","disponible","precio","imagen","category_id","marca_id"]);
     }

@@ -10,6 +10,8 @@ class Marca extends Model
 {
     use HasFactory;
     protected $fillable = ['nombre','descripcion','imagen'];
+
+    //Relación 1:N con Article
     public function articles(){
         return $this->hasMany(Article::class);
     }

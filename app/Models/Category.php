@@ -11,6 +11,7 @@ class Category extends Model
     use HasFactory;
     protected $fillable = ['nombre','color'];
 
+    //Relación 1:N con Article
     public function articles(){
         return $this->hasMany(Article::class);
     }

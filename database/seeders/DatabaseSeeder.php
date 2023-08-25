@@ -22,12 +22,15 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        //Llamo a todos los seeders y al factory de User
         User::factory(9)->create();
         $this->call(UserSeeder::class);
         $this->call(MarcaSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(ArticleSeeder::class);
 
+        //Primero se borran las carpetas de imagenes (por si existieran de antes) y después las creo 
         Storage::deleteDirectory('imagenesmarcas');
         Storage::makeDirectory('imagenesmarcas');
         Storage::deleteDirectory('imagenesarticulos');

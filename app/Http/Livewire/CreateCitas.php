@@ -15,6 +15,8 @@ class CreateCitas extends Component
 
     public function render()
     {
+        // En el render creo una variable que contenga la fecha actual usando la librería Carbon
+        // y le doy el formato
         $fechaActual = Carbon::now();
         $fechaActual = $fechaActual->format('d/m/Y H:i');
         return view('livewire.create-citas',compact('fechaActual'));
@@ -22,6 +24,8 @@ class CreateCitas extends Component
 
     protected function rules(): array
     {
+        // Validaciones
+        //Aquí meto la variable fechaActual para que compruebe que no se creen citas antes del día de hoy
         $fechaActual = Carbon::now()->tz('Europe/Madrid');
         $fechaActual = $fechaActual->format('d/m/Y H:i');
         return [
@@ -32,6 +36,7 @@ class CreateCitas extends Component
         ];
     }
 
+    // Función para abrir la ventana modal
     public function openCrear(){
         $this->openCrear = true;
     }
@@ -50,6 +55,7 @@ class CreateCitas extends Component
         $this->emit("mensaje", "Cita Creada");
     }
 
+    // Función para cerrar la ventana modal si se pulsa el botón cancelar
     public function cerrar(){
         $this->reset(["openCrear","fecha","tipo"]);
     }

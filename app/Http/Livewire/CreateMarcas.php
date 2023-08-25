@@ -17,6 +17,7 @@ class CreateMarcas extends Component
 
     protected function rules(): array
     {
+        // Validaciones
         return [
             'nombre' => ['required', 'string', 'min:3', 'unique:categories,nombre'],
             'descripcion' => ['required','string', 'min:10'],
@@ -29,6 +30,7 @@ class CreateMarcas extends Component
         return view('livewire.create-marcas');
     }
 
+    // Función para abrir la ventana modal
     public function openCrear(){
         $this->openCrear = true;
     }
@@ -49,6 +51,7 @@ class CreateMarcas extends Component
         $this->emit("mensaje", "Marca Creada");
     }
 
+    // Función para cerrar la ventana modal si se pulsa el botón cancelar
     public function cerrar(){
         $this->reset(["openCrear","nombre","descripcion","imagen"]);
     }

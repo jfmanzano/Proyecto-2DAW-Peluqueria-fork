@@ -7,6 +7,7 @@ use App\Http\Livewire\ShowArticles;
 use App\Http\Livewire\ShowCategories;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
+use App\Models\Article;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
@@ -26,19 +27,22 @@ Route::get('/', function () {
     return view('welcome');
 })->name('inicio');
 
+//En este middleware entrará cualquier usuario autenticado
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        $marcas = Marca::orderBy('id', 'desc')
-    ->paginate(2);
-    return view('dashboard', compact('marcas'));
+        $articles = Article::where('disponible','SI')
+        ->orderBy('id', 'desc')
+    ->paginate(3);
+    return view('dashboard', compact('articles'));
     })->name('dashboard');
     Route::get('/citas', ShowCitas::class)->name('citas.show');
 });
 
+//En este middleware entrará cualquier usuario autenticado y que sea administrador
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

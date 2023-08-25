@@ -13,6 +13,8 @@ class ShowCategories extends Component
     public string $buscar = "", $campo="nombre", $orden="desc";
     public Category $miCategory;
     public bool $openEditar = false;
+
+    //Variable que recibe los mensajes de la vista
     protected $listeners = [
         "refreshCategories"=>"render",
         'borrarCategory'=>'borrar'
@@ -20,12 +22,14 @@ class ShowCategories extends Component
 
     public function render()
     {
+        // En el render uso la función buscar para las categorías
         $categorias = Category::where('nombre', 'like', "%{$this->buscar}%")
         ->orderBy($this->campo, $this->orden)
         ->paginate(2);
         return view('livewire.show-categories', compact('categorias'));
     }
 
+    //Función para ordenar el contenido de la tabla
     public function ordenar(string $campo){
         $this->orden = ($this->orden == "asc") ? "desc" : "asc";
         $this->campo = $campo;
@@ -43,10 +47,12 @@ class ShowCategories extends Component
         return redirect('/categories');
     }
 
+    // Función para preguntar primero si se quiere borrar la categoría
     public function confirmar(Category $category){
         $this->emit('permisoBorrar', $category->id);
     }
 
+    // Función para abrir la ventana modal del editar
     public function editar(Category $miCategory){
         $this->miCategory = $miCategory;
         $this->openEditar = true;
@@ -54,6 +60,7 @@ class ShowCategories extends Component
 
     protected function rules(): array
     {
+        // Validaciones
         return [
             'miCategory.nombre' => ['required', 'string', 'min:3', 'unique:categories,nombre,'.$this->miCategory->id],
             'miCategory.color' => ['nullable','regex:/#[A-Fa-f0-9]{6}/']

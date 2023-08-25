@@ -10,6 +10,7 @@ class MarcaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * Aquí creamos ejemplos de marcas
      */
     public function run(): void
     {

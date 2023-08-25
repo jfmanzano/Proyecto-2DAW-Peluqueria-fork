@@ -20,6 +20,7 @@ class ShowArticles extends Component
     public Article $articulo, $miArticulo;
     public $imagen;
 
+    // Variable que recibe los mensajes de la vista
     protected $listeners = [
         'refreshArticulos' => 'render',
         'borrarArticulo' => 'borrar'
@@ -27,6 +28,8 @@ class ShowArticles extends Component
 
     public function render()
     {
+        // En el render uso la función buscar para los artículos
+        // y creo los arrays categorias y marcas para la ventana modal editar
         $articulos = Article::where('nombre', 'like', "%{$this->buscar}%")
         ->orderBy($this->campo, $this->orden)
         ->paginate(2);
@@ -39,6 +42,7 @@ class ShowArticles extends Component
         return view('livewire.show-articles', compact('articulos','categories','marcas'));
     }
 
+    //Función para ordenar el contenido de la tabla
     public function ordenar(string $campo){
         $this->orden = ($this->orden == "asc") ? "desc" : "asc";
         $this->campo = $campo;
@@ -58,15 +62,18 @@ class ShowArticles extends Component
         return redirect('/articles');
     }
 
+    // Función para preguntar primero si se quiere borrar el artículo
     public function confirmar(Article $articulo){
         $this->emit('permisoBorrar3', $articulo->id);
     }
 
+    // Función para abrir la ventana modal del detalle
     public function detalle (Article $articulo){
         $this->articulo = $articulo;
         $this->openDetalle = true;
     }
 
+    // Función para abrir la ventana modal del editar
     public function editar(Article $miArticulo){
         $this->miArticulo = $miArticulo;
         $this->openEditar = true;
@@ -74,6 +81,7 @@ class ShowArticles extends Component
 
     protected function rules(): array
     {
+        // Validaciones
         return [
             'miArticulo.nombre' => '',
             'miArticulo.descripcion' => ['required','string','min:10'],
@@ -100,6 +108,8 @@ class ShowArticles extends Component
         $this->reset(['openEditar', 'imagen']);
     }
 
+    // Función que permite cambiar la disponibilidad de un artículo si se pincha en la vista
+    // el cuadro que corresponda a cada artículo
     public function cambiarDisponibilidad(Article $article){
         $disponibilidad=($article->disponible=="SI") ? "NO" : "SI";
         $article->update([

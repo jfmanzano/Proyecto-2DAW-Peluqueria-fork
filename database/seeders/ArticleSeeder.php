@@ -11,6 +11,7 @@ class ArticleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * Aquí creos ejemplos de artículos
      */
     public function run(): void
     {

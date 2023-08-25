@@ -10,6 +10,7 @@ class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * Aquí creo ejemplos de categorías
      */
     public function run(): void
     {

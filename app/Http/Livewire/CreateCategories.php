@@ -14,6 +14,7 @@ class CreateCategories extends Component
 
     protected function rules(): array
     {
+        // Validaciones
         return [
             'nombre' => ['required', 'string', 'min:3', 'unique:categories,nombre'],
             'color' => ['required','regex:/#[A-Fa-f0-9]{6}/']
@@ -25,6 +26,7 @@ class CreateCategories extends Component
         return view('livewire.create-categories');
     }
 
+    // Función para abrir la ventana modal
     public function openCrear(){
         $this->openCrear = true;
     }
@@ -42,6 +44,7 @@ class CreateCategories extends Component
         $this->emit("mensaje", "Categoría Creada");
     }
 
+    // Función para cerrar la ventana modal si se pulsa el botón cancelar
     public function cerrar(){
         $this->reset(["openCrear","nombre","color"]);
     }

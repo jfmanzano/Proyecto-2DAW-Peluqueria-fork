@@ -11,14 +11,16 @@ class Article extends Model
     use HasFactory;
     protected $fillable = ['nombre','descripcion','disponible','precio','imagen','category_id','marca_id'];
     
+    //Relación 1:N con Marca
     public function marca(){
         return $this->belongsTo(Marca::class);
     }
 
+    //Relación 1:N con Category
     public function category(){
         return $this->belongsTo(Category::class);
     }
-    //Relación N:M con Users
+    //Relación N:M con User (al ser N a M se utiliza belongsToMany)
     public function users(){
         return $this->belongsToMany(User::class)->withTimestamps();
     }

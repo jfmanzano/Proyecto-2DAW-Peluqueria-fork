@@ -17,6 +17,8 @@ class ShowMarcas extends Component
     public Marca $miMarca;
     public bool $openEditar = false;
     public $imagen;
+
+    // Variable que recibe los mensajes de la vista
     protected $listeners = [
         "refreshMarcas"=>"render",
         'borrarMarca'=>'borrar'
@@ -24,12 +26,14 @@ class ShowMarcas extends Component
 
     public function render()
     {
+        // En el render uso la función buscar para las marcas
         $marcas = Marca::where('nombre', 'like', "%{$this->buscar}%")
         ->orderBy($this->campo, $this->orden)
         ->paginate(2);
         return view('livewire.show-marcas', compact('marcas'));
     }
 
+    //Función para ordenar el contenido de la tabla
     public function ordenar(string $campo){
         $this->orden = ($this->orden == "asc") ? "desc" : "asc";
         $this->campo = $campo;
@@ -49,10 +53,12 @@ class ShowMarcas extends Component
         return redirect('/marcas');
     }
 
+    // Función para preguntar primero si se quiere borrar la categoría
     public function confirmar(Marca $marca){
         $this->emit('permisoBorrar2', $marca->id);
     }
 
+    // Función para abrir la ventana modal del editar
     public function editar(Marca $miMarca){
         $this->miMarca = $miMarca;
         $this->openEditar = true;
@@ -60,6 +66,7 @@ class ShowMarcas extends Component
 
     protected function rules(): array
     {
+        // Validaciones
         return [
             'miMarca.nombre' => '',
             'miMarca.descripcion' => ['required','string','min:10'],

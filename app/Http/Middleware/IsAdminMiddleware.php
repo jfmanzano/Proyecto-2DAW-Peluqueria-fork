@@ -15,6 +15,7 @@ class IsAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Si el usuario autenticado no es admin salta el error 403
         if(!auth()->user()->is_admin){
             abort(403);
         }
