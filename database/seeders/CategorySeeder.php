@@ -14,7 +14,7 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $categorias = [
+        $categorias = [ 
             'Hombre' => '#58aef6',
             'Mujer' => '#f93aa8',
             'Unisex' => '#5af93a',
