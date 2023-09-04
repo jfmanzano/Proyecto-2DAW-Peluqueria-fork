@@ -87,6 +87,7 @@ class ShowArticles extends Component
             'miArticulo.descripcion' => ['required','string','min:10'],
             'miArticulo.disponible' => ['required', 'in:SI,NO'],
             'miArticulo.precio' => ['required', 'numeric', 'min:1', 'max:999.99'],
+            'miArticulo.stock' => ['required', 'numeric', 'min:0', 'max:10000'],
             'miArticulo.imagen' => ['required','image', 'max:2048'],
             'miArticulo.category_id' => ['required', 'exists:categories,id'],
             'miArticulo.marca_id' => ['required', 'exists:marcas,id'],
@@ -102,6 +103,9 @@ class ShowArticles extends Component
         if($this->imagen){
             Storage::delete($this->miArticulo->imagen);
             $this->miArticulo->imagen = $this->imagen->store('imagenesarticulos');
+        }
+        if($this->miArticulo->stock == 0){
+            $this->miArticulo->disponible = "NO";
         }
         $this->miArticulo->save();
         $this->emit('mensaje', 'Artículo Actualizado');

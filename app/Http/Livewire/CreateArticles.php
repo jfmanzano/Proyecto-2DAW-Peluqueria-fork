@@ -16,7 +16,7 @@ class CreateArticles extends Component
     use WithFileUploads;
     public bool $openCrear = false;
     public string $nombre = "", $descripcion = "", $disponible = "";
-    public $imagen, $precio, $category_id, $marca_id;
+    public $imagen, $precio, $stock, $category_id, $marca_id;
 
     public function render()
     {
@@ -38,6 +38,7 @@ class CreateArticles extends Component
             'descripcion' => ['required','string', 'min:10'],
             'disponible' => ['required', 'in:SI,NO'],
             'precio' => ['required', 'numeric', 'min:1', 'max:999.99'],
+            'stock' => ['required', 'numeric', 'min:0', 'max:10000'],
             'imagen' => ['required','image', 'max:2048'],
             'category_id' => ['required', 'exists:categories,id'],
             'marca_id' => ['required', 'exists:marcas,id']
@@ -59,6 +60,7 @@ class CreateArticles extends Component
             'descripcion'=>$this->descripcion,
             'disponible'=>$this->disponible,
             'precio'=>$this->precio,
+            'stock'=>$this->stock,
             'imagen'=>$imagen,
             'category_id'=>$this->category_id,
             'marca_id'=>$this->marca_id
@@ -67,13 +69,15 @@ class CreateArticles extends Component
         // utilizo esta línea para borrarlo
         File::deleteDirectory(storage_path('app/public/livewire-tmp'));
 
-        $this->reset(["openCrear","nombre","descripcion","disponible","precio","imagen","category_id","marca_id"]);
+        $this->reset(["openCrear","nombre","descripcion","disponible","precio","stock",
+        "imagen","category_id","marca_id"]);
         $this->emitTo("show-articles","refreshArticulos");
         $this->emit("mensaje", "Artículo Creado");
     }
 
     // Función para cerrar la ventana modal si se pulsa el botón cancelar
     public function cerrar(){
-        $this->reset(["openCrear","nombre","descripcion","disponible","precio","imagen","category_id","marca_id"]);
+        $this->reset(["openCrear","nombre","descripcion","disponible","precio","stock",
+        "imagen","category_id","marca_id"]);
     }
 }

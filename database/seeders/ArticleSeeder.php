@@ -21,6 +21,7 @@ class ArticleSeeder extends Seeder
             'disponible'=>'SI',
             'imagen' => 'champupantene.png',
             'precio' => 20 ,
+            'stock'=> 14,
             'marca_id'=> '1', //La id de Pantene es 1 (es una prueba creada manualmente)
             'category_id'=> '1',
         ]);
@@ -30,6 +31,7 @@ class ArticleSeeder extends Seeder
             'disponible'=>'NO',
             'imagen' => 'champugarnier.jpeg',
             'precio' => 15 ,
+            'stock'=> 0,
             'marca_id'=> '2', //La id de Garnier es 2 (es una prueba creada manualmente)
             'category_id'=> '2',
         ]);
@@ -39,6 +41,7 @@ class ArticleSeeder extends Seeder
             'disponible'=>'SI',
             'imagen' => 'maquinaphilips.webp',
             'precio' => 25 ,
+            'stock'=> 25,
             'marca_id'=> '3',
             'category_id'=> '1',
         ]);
@@ -48,6 +51,7 @@ class ArticleSeeder extends Seeder
             'disponible'=>'NO',
             'imagen' => 'plancharemington.webp',
             'precio' => 19.99 ,
+            'stock'=> 10,
             'marca_id'=> '4',
             'category_id'=> '3',
         ]);
@@ -57,6 +61,7 @@ class ArticleSeeder extends Seeder
             'disponible'=>'SI',
             'imagen' => 'acondicionadorloreal.jpg',
             'precio' => 30 ,
+            'stock'=> 9,
             'marca_id'=> '5',
             'category_id'=> '2',
         ]);
@@ -66,6 +71,7 @@ class ArticleSeeder extends Seeder
             'disponible'=>'SI',
             'imagen' => 'tintegarnier.jpg',
             'precio' => 20 ,
+            'stock'=> 40,
             'marca_id'=> '2',
             'category_id'=> '2',
         ]);

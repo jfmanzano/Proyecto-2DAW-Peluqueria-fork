@@ -25,7 +25,7 @@
                             wire:click="ordenar('disponible')">
                             <i class="fas fa-sort mr-2"></i> Disponible
                         </th>
-                        <th scope="col" class="py-3 border border-slate-600"> Precio
+                        <th scope="col" class="py-3 border border-slate-600"> Stock
                         </th>
                         <th scope="col" class="py-3 border border-slate-600">
                             Acciones
@@ -50,11 +50,12 @@
                                     'py-2 rounded-md',
                                     'text-red-600 font-bold line-through' => $item->disponible == 'NO',
                                     'text-green-600 font-bold' => $item->disponible == 'SI',
-                                ])>{{ $item->disponible }}</span></p>
+                                ])
+                                >{{ $item->disponible }}</span></p>
                             </td>
                             <td class="w-1/5 py-4 border border-slate-700">
                                 <p class="px-2 py-2 rounded-md text-gray-400 font-bold">
-                                    {{ $item->precio }} €</p>
+                                    {{ $item->stock }} unidades</p>
                             </td>
                             <td class="w-1/5 py-4 border border-slate-700">
                                 <button wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled">
@@ -101,6 +102,9 @@
                             <p class="text-gray-700 text-base mb-4">
                                 Precio: {{ $articulo->precio }} €
                             </p>
+                            <p class="text-gray-700 text-base mb-4">
+                                Stock: {{ $articulo->stock }} unidades
+                            </p>
                             <p class="text-gray-700 text-base mb-4"
                                 style="background-color: {{ $articulo->category->color }}">
                                 Categoría: {{ $articulo->category->nombre }}
@@ -140,6 +144,7 @@
                         <x-form-radio name="miArticulo.disponible" value="NO" label="No" />
                     </x-form-group>
                     <x-form-input name="miArticulo.precio" type="number" step="0.01" label="Precio del artículo" />
+                    <x-form-input name="miArticulo.stock" type="number" step="1" label="Número de unidades (stock)" />
                     <x-form-select name="miArticulo.category_id" :options="$categories" label="Categoría" />
                     <x-form-select name="miArticulo.marca_id" :options="$marcas" label="Marca" />
                 @endwire

@@ -18,6 +18,7 @@
                 <x-form-radio name="disponible" value="NO" label="No" />
             </x-form-group>
             <x-form-input name="precio" type="number" step="0.01" id="precio" label="Precio del artículo" />
+            <x-form-input name="stock" type="number" step="1" id="stock" label="Número de unidades (stock)" />
             <x-form-select name="category_id" :options="$categories" label="Categoría"/>
             <x-form-select name="marca_id" :options="$marcas" label="Marca"/>
             @endwire

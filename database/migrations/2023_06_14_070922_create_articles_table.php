@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('disponible',['SI','NO']);
             $table->string('imagen');
             $table->decimal('precio', 5, 2);
+            $table->integer('stock');
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('marca_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
