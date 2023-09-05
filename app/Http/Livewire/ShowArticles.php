@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Carro;
 use App\Models\Marca;
 use App\Models\Article;
 use Livewire\Component;
@@ -27,12 +28,21 @@ class ShowArticles extends Component
     ];
 
     public function render()
-    {
+    {   
+        // Consulta para administrador
+        if(auth()->user()->is_admin){
+            $articulos = Article::where('nombre', 'like', "%{$this->buscar}%")
+            ->orderBy($this->campo, $this->orden)
+            ->paginate(2);
+        }else {
+            // Consulta para usuario normal
+            $articulos = Article::where('nombre', 'like', "%{$this->buscar}%")
+            ->where('disponible', 'SI')
+            ->orderBy($this->campo, $this->orden)
+            ->paginate(2);
+        }
         // En el render uso la función buscar para los artículos
-        // y creo los arrays categorias y marcas para la ventana modal editar
-        $articulos = Article::where('nombre', 'like', "%{$this->buscar}%")
-        ->orderBy($this->campo, $this->orden)
-        ->paginate(2);
+        // y creo los arrays categorias y marcas para la ventana modal editar 
         $categories = Category::all()->pluck('nombre', 'id')->toArray();
         $categories[0]='______ Elige una categoría _____';
         ksort($categories);
@@ -120,5 +130,13 @@ class ShowArticles extends Component
             'disponible'=>$disponibilidad,
         ]);
         $this->emit("mensaje", "Se cambió la disponibilidad del artículo");
+    }
+
+    public function carro($id){
+        Carro::create([
+            'user_id'=>auth()->user()->id,
+            'article_id'=>$id,
+            'cantidad'=>1
+        ]);
     }
 }

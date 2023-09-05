@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarroController;
 use App\Models\Marca;
 use App\Http\Livewire\ShowCitas;
 use App\Http\Livewire\ShowMarcas;
@@ -39,7 +40,9 @@ Route::middleware([
     ->paginate(3);
     return view('dashboard', compact('articles'));
     })->name('dashboard');
+    Route::get('/articles', ShowArticles::class)->name('articulos.show');
     Route::get('/citas', ShowCitas::class)->name('citas.show');
+    Route::resource('carro', CarroController::class);
 });
 
 //En este middleware entrará cualquier usuario autenticado y que sea administrador
@@ -51,7 +54,6 @@ Route::middleware([
 ])->group(function () {
     Route::get('/categories', ShowCategories::class)->name('categorias.show');
     Route::get('/marcas', ShowMarcas::class)->name('marcas.show');
-    Route::get('/articles', ShowArticles::class)->name('articulos.show');
 });
 
 //Rutas para formulario de contacto

@@ -71,5 +71,9 @@ class User extends Authenticatable
     public function citas(){
         return $this->hasMany(Cita::class);
     }
+    //Relación 1:N con Carro
+    public function carros(){
+        return $this->hasMany(Carro::class);
+    }
 
 }

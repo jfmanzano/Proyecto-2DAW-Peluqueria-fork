@@ -25,6 +25,10 @@ class Article extends Model
     public function users(){
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+    //Relación 1:N con Carro
+    public function carros(){
+        return $this->hasMany(Carro::class);
+    }
 
     // public function image(): MorphOne
     // {

@@ -13,6 +13,7 @@
                 class="w-full border-collapse border border-slate-500 text-center
                 text-sm text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    @if(auth()->user()->is_admin)
                     <tr>
                         <th scope="col" class="py-3">
                             Detalle
@@ -31,8 +32,29 @@
                             Acciones
                         </th>
                     </tr>
+                    @else
+                    <tr>
+                        <th scope="col" class="py-3">
+                            Detalle
+                        </th>
+                        <th scope="col" class="text-center py-3 cursor-pointer border border-slate-600"
+                            wire:click="ordenar('nombre')">
+                            <i class="fas fa-sort mr-2"></i> Nombre
+                        </th>
+                        <th scope="col" class="text-center py-3 border border-slate-600">
+                            Precio
+                        </th>
+                        <th scope="col" class="text-center py-3 border border-slate-600">
+                            Imagen
+                        </th>
+                        <th scope="col" class="text-center py-3 border border-slate-600">
+                            Añadir al carro
+                        </th>
+                    </tr>
+                    @endif
                 </thead>
                 <tbody>
+                    @if(auth()->user()->is_admin)
                     @foreach ($articulos as $item)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td class="w-1/5 py-4 border border-slate-700">
@@ -67,6 +89,34 @@
                             </td>
                         </tr>
                     @endforeach
+                    @else
+                    @foreach ($articulos as $item)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <td class="w-1/5 py-4 border border-slate-700">
+                                <button wire:click="detalle ({{ $item }})"
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    <i class="fas fa-info"></i>
+                                </button>
+                            </td>
+                            <td class="w-1/5 py-4 text-center border border-slate-700">
+                                {{ $item->nombre }}
+                            </td>
+                            <td class="w-1/5 py-4 text-center border border-slate-700">
+                                <p class="px-2 py-2 rounded-md text-gray-400 font-bold">
+                                    {{ $item->precio }} €</p>
+                            </td>
+                            <td class="w-1/5 py-4 border border-slate-700">
+                                <img src="{{ Storage::url($item->imagen) }}" alt="imagen de {{ $item->nombre }}"
+                                    class="mx-auto w-1/2">
+                            </td>
+                            <td class="w-1/5 py-4 text-center border border-slate-700">
+                                <button wire:click="carro('{{ $item->id }}')" wire:loading.attr="disabled">
+                                    <i class="fas fa-add text-blue-600"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                    @endif
                 </tbody>
             </table>
             <div class="mt-2">

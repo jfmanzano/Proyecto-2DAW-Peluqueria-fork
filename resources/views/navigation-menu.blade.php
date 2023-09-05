@@ -22,13 +22,15 @@
                             <x-nav-link :href="route('marcas.show')" :active="request()->routeIs('marcas.show')" title="Gestionar Marcas">
                                 <i class="fa-solid fa-briefcase"></i>
                             </x-nav-link>
-                            <x-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')" title="Gestionar Artículos">
-                                <i class="fa-solid fa-tags"></i>
-                            </x-nav-link>
-                            
                         @endif
+                        <x-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')" title="Gestionar Artículos">
+                            <i class="fa-solid fa-tags"></i>
+                        </x-nav-link>
                         <x-nav-link :href="route('citas.show')" :active="request()->routeIs('citas.show')" title="Gestionar Citas">
                             <i class="fa-solid fa-address-book"></i>
+                        </x-nav-link>
+                        <x-nav-link :href="route('carro.index')" :active="request()->routeIs('carro.index')" title="Gestionar Carro">
+                            <i class="fa-solid fa-cart-shopping"></i>
                         </x-nav-link>
                     @endauth
                     <x-nav-link :href="route('contacto.pintar')" :active="request()->routeIs('contacto.pintar')" title="Correo Contacto">
@@ -133,13 +135,16 @@
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('marcas.show')" :active="request()->routeIs('marcas.show')">
                         <i class="fa-solid fa-briefcase"></i> Gestionar Marcas
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')">
-                        <i class="fa-solid fa-tags"></i> Gestionar Artículos
                     </x-responsive-nav-link>   
                 @endif
+                <x-responsive-nav-link :href="route('articulos.show')" :active="request()->routeIs('articulos.show')">
+                    <i class="fa-solid fa-tags"></i> Gestionar Artículos
+                </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('citas.show')" :active="request()->routeIs('citas.show')">
                     <i class="fa-solid fa-address-book"></i> Gestionar Citas
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('carro.index')" :active="request()->routeIs('carro.index')">
+                    <i class="fa-solid fa-cart-shopping"></i> Gestionar Carro
                 </x-responsive-nav-link>
             @endauth
             <x-responsive-nav-link :href="route('contacto.pintar')" :active="request()->routeIs('contacto.pintar')">
