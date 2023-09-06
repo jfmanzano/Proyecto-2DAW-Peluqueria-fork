@@ -1,10 +1,5 @@
 <x-app-layout>
     <x-miscomponentes.tablas>
-    <div class="flex mb-3">
-        <div class="flex-1">
-            <x-input class="w-full" type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
-        </div>
-    </div>
     @if ($carro->count())
         <div class="mx-auto">
             <table
@@ -47,18 +42,48 @@
                                     class="mx-auto w-1/2">
                             </td>
                             <td class="w-1/5 py-4 text-center border border-slate-700">
-                                <p class="px-2 py-2 rounded-md text-gray-400 font-bold">
-                                    {{ $item->cantidad }} </p>
+                                <form name="disminuir" action="{{route('carro.update', $item, 1)}}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit">
+                                        <i class="fas fa-minus text-blue-600"></i>
+                                    </button>
+                                </form>
+                                <span class="px-2 py-2 rounded-md text-gray-400 font-bold">
+                                    {{ $item->cantidad }} </span>
+                                    <form name="aumentar" action="{{route('carro.update', $item, 2)}}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit">
+                                            <i class="fas fa-add text-blue-600"></i>
+                                        </button>
+                                    </form>
                             </td>
                             <td class="w-1/5 py-4 text-center border border-slate-700">
-                                <button wire:click="borrar('{{ $item->article->id }}')" wire:loading.attr="disabled">
-                                    <i class="fas fa-trash text-red-600"></i>
-                                </button>
+                                <form action="{{route('carro.destroy', $item)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit">
+                                        <i class="fas fa-trash text-red-600"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            <div>
+                {{$total}}
+            </div>
+            <div>
+                <form action="{{route('carro.clear')}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">
+                        <i class="fas fa-trash text-red-600"></i>
+                    </button>
+                </form>
+            </div>
             <div class="mt-2">
                 {{ $carro->links() }}
             </div>

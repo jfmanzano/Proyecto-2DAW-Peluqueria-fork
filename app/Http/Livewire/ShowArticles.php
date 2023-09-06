@@ -138,5 +138,6 @@ class ShowArticles extends Component
             'article_id'=>$id,
             'cantidad'=>1
         ]);
+        return redirect('/articles');
     }
 }

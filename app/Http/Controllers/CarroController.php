@@ -4,17 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Carro;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Type\Integer;
 
 class CarroController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+     // Creo la variable carro para mostralo en la vista, la variable carroCompleto se encarga
+     // de coger todos los artículos y se complementará con la variable total para mostrar
+     //el precio total de todo el carro
     public function index()
     {
         $carro = Carro::where('user_id', auth()->user()->id)
-        ->paginate(3);
-        return view('carro.carro', compact('carro'));
+        ->paginate(2);
+        $carroCompleto = Carro::where('user_id', auth()->user()->id)->get();
+        $total = 0;
+        foreach($carroCompleto as $item){
+            $total = $item->cantidad * $item->article->precio + $total;
+        }
+        return view('carro.carro', compact('carro','total'));
     }
 
     /**
@@ -52,9 +62,13 @@ class CarroController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Carro $carro)
+    public function update(Request $request, Carro $carro, int $option)
     {
-        //
+        $request->validate([
+            'cantidad'=> ['min:1','max:'.$carro->article->stock-1]
+        ]);
+        $carro->update(['cantidad'=> ($option == 1)? $carro->cantidad - 1 : $carro->cantidad + 1]);
+        return redirect()->route('carro.index')->with('info','Cantidad editada');
     }
 
     /**
@@ -62,6 +76,31 @@ class CarroController extends Controller
      */
     public function destroy(Carro $carro)
     {
-        //
+        $carro->delete();
+        return redirect()->route('carro.index')->with('info','Artículo eliminado del carro');
+    }
+
+    // Esta función la utilizo para borrar todo el carro
+    public function clear(){
+        $listaCarro = Carro::where('user_id', auth()->user()->id)->get();
+        foreach($listaCarro as $item){
+            $item->delete();
+        }
+        return redirect()->route('articulos.show')->with('info','Carro borrado');
+    }
+
+    // Función que aumenta la cantidad de artículos en el carro
+    public function subir(Carro $carro){
+        $carro->update([
+            'cantidad'=> $carro->cantidad + 1
+        ]);
+        return redirect()->route('carro.index')->with('info','Cantidad editada');
+    }
+    // Función que disminuye la cantidad de artículos en el carro
+    public function bajar(Carro $carro){
+        $carro->update([
+            'cantidad'=> $carro->cantidad - 1
+        ]);
+        return redirect()->route('carro.index')->with('info','Cantidad editada');
     }
 }

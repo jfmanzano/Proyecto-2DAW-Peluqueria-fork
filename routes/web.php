@@ -35,14 +35,15 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        $articles = Article::where('disponible','SI')
-        ->orderBy('id', 'desc')
-    ->paginate(3);
-    return view('dashboard', compact('articles'));
+    return view('dashboard');
     })->name('dashboard');
     Route::get('/articles', ShowArticles::class)->name('articulos.show');
     Route::get('/citas', ShowCitas::class)->name('citas.show');
-    Route::resource('carro', CarroController::class);
+    // Rutas del carro
+    Route::resource('/carro', CarroController::class);
+    Route::delete('clear',[CarroController::class,'clear'])->name('carro.clear');
+    // Route::post('subir',[CarroController::class,'subir'])->name('carro.subir');
+    // Route::post('bajar',[CarroController::class,'bajar'])->name('carro.bajar');
 });
 
 //En este middleware entrará cualquier usuario autenticado y que sea administrador
