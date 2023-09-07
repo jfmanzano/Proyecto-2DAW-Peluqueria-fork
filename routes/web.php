@@ -42,8 +42,6 @@ Route::middleware([
     // Rutas del carro
     Route::resource('/carro', CarroController::class);
     Route::delete('clear',[CarroController::class,'clear'])->name('carro.clear');
-    // Route::post('subir',[CarroController::class,'subir'])->name('carro.subir');
-    // Route::post('bajar',[CarroController::class,'bajar'])->name('carro.bajar');
 });
 
 //En este middleware entrará cualquier usuario autenticado y que sea administrador

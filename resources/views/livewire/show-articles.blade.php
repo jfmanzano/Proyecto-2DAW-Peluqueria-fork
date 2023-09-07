@@ -48,7 +48,7 @@
                             Imagen
                         </th>
                         <th scope="col" class="text-center py-3 border border-slate-600">
-                            Añadir al carro
+                            Acciones carro
                         </th>
                     </tr>
                     @endif
@@ -110,9 +110,15 @@
                                     class="mx-auto w-1/2">
                             </td>
                             <td class="w-1/5 py-4 text-center border border-slate-700">
-                                <button wire:click="carro('{{ $item->id }}')" wire:loading.attr="disabled">
+                                @if(in_array($item->id, $arrayCarro))
+                                <button wire:click="eliminarArticuloCarro('{{ $item->id }}')" wire:loading.attr="disabled">
+                                    <i class="fas fa-minus text-red-600"></i>
+                                </button>
+                                @else
+                                <button wire:click="ponerEnCarro('{{ $item->id }}')" wire:loading.attr="disabled">
                                     <i class="fas fa-add text-blue-600"></i>
                                 </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

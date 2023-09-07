@@ -62,12 +62,13 @@ class CarroController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Carro $carro, int $option)
+    public function update(Request $request, Carro $carro)
     {
+        // dd($carro->article->stock);
         $request->validate([
-            'cantidad'=> ['min:1','max:'.$carro->article->stock-1]
+            'cantidad'=> ['numeric','min:1','max:'.$carro->article->stock]
         ]);
-        $carro->update(['cantidad'=> ($option == 1)? $carro->cantidad - 1 : $carro->cantidad + 1]);
+        $carro->update(['cantidad'=> $request->cantidad]);
         return redirect()->route('carro.index')->with('info','Cantidad editada');
     }
 
