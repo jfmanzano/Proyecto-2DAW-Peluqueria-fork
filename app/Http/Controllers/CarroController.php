@@ -18,7 +18,7 @@ class CarroController extends Controller
     public function index()
     {
         $carro = Carro::where('user_id', auth()->user()->id)
-        ->paginate(2);
+        ->paginate(3);
         $carroCompleto = Carro::where('user_id', auth()->user()->id)->get();
         $total = 0;
         foreach($carroCompleto as $item){

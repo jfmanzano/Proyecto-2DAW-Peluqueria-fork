@@ -3,131 +3,81 @@
         <div class="flex-1">
             <x-input class="w-full" type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
         </div>
-        <div>
-            @livewire('create-articles')
-        </div>
+        @if (auth()->user()->is_admin)
+            <div>
+                @livewire('create-articles')
+            </div>
+        @endif
     </div>
     @if ($articulos->count())
-        <div class="relative overflow-x-auto">
-            <table
-                class="w-full border-collapse border border-slate-500 text-center
-                text-sm text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    @if(auth()->user()->is_admin)
-                    <tr>
-                        <th scope="col" class="py-3">
-                            Detalle
-                        </th>
-                        <th scope="col" class="py-3 cursor-pointer border border-slate-600"
-                            wire:click="ordenar('nombre')">
-                            <i class="fas fa-sort mr-2"></i> Nombre
-                        </th>
-                        <th scope="col" class="py-3 cursor-pointer border border-slate-600"
-                            wire:click="ordenar('disponible')">
-                            <i class="fas fa-sort mr-2"></i> Disponible
-                        </th>
-                        <th scope="col" class="py-3 border border-slate-600"> Stock
-                        </th>
-                        <th scope="col" class="py-3 border border-slate-600">
-                            Acciones
-                        </th>
-                    </tr>
-                    @else
-                    <tr>
-                        <th scope="col" class="py-3">
-                            Detalle
-                        </th>
-                        <th scope="col" class="text-center py-3 cursor-pointer border border-slate-600"
-                            wire:click="ordenar('nombre')">
-                            <i class="fas fa-sort mr-2"></i> Nombre
-                        </th>
-                        <th scope="col" class="text-center py-3 border border-slate-600">
-                            Precio
-                        </th>
-                        <th scope="col" class="text-center py-3 border border-slate-600">
-                            Imagen
-                        </th>
-                        <th scope="col" class="text-center py-3 border border-slate-600">
-                            Acciones carro
-                        </th>
-                    </tr>
-                    @endif
-                </thead>
-                <tbody>
-                    @if(auth()->user()->is_admin)
-                    @foreach ($articulos as $item)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="w-1/5 py-4 border border-slate-700">
-                                <button wire:click="detalle ({{ $item }})"
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    <i class="fas fa-info"></i>
-                                </button>
-                            </td>
-                            <td class="w-1/5 py-4 border border-slate-700">
-                                {{ $item->nombre }}
-                            </td>
-                            <td class="w-1/5 py-4 border border-slate-700 cursor-pointer" 
-                            wire:click="cambiarDisponibilidad('{{ $item->id }}')">
-                                <p><span @class([
-                                    'py-2 rounded-md',
-                                    'text-red-600 font-bold line-through' => $item->disponible == 'NO',
-                                    'text-green-600 font-bold' => $item->disponible == 'SI',
-                                ])
-                                >{{ $item->disponible }}</span></p>
-                            </td>
-                            <td class="w-1/5 py-4 border border-slate-700">
-                                <p class="px-2 py-2 rounded-md text-gray-400 font-bold">
-                                    {{ $item->stock }} unidades</p>
-                            </td>
-                            <td class="w-1/5 py-4 border border-slate-700">
-                                <button wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled">
-                                    <i class="fas fa-trash text-red-600"></i>
-                                </button>
-                                <button wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled">
-                                    <i class="fas fa-edit text-yellow-600"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    @endforeach
-                    @else
-                    @foreach ($articulos as $item)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="w-1/5 py-4 border border-slate-700">
-                                <button wire:click="detalle ({{ $item }})"
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    <i class="fas fa-info"></i>
-                                </button>
-                            </td>
-                            <td class="w-1/5 py-4 text-center border border-slate-700">
-                                {{ $item->nombre }}
-                            </td>
-                            <td class="w-1/5 py-4 text-center border border-slate-700">
-                                <p class="px-2 py-2 rounded-md text-gray-400 font-bold">
-                                    {{ $item->precio }} €</p>
-                            </td>
-                            <td class="w-1/5 py-4 border border-slate-700">
-                                <img src="{{ Storage::url($item->imagen) }}" alt="imagen de {{ $item->nombre }}"
-                                    class="mx-auto w-1/2">
-                            </td>
-                            <td class="w-1/5 py-4 text-center border border-slate-700">
-                                @if(in_array($item->id, $arrayCarro))
-                                <button wire:click="eliminarArticuloCarro('{{ $item->id }}')" wire:loading.attr="disabled">
-                                    <i class="fas fa-minus text-red-600"></i>
-                                </button>
-                                @else
-                                <button wire:click="ponerEnCarro('{{ $item->id }}')" wire:loading.attr="disabled">
-                                    <i class="fas fa-add text-blue-600"></i>
-                                </button>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                    @endif
-                </tbody>
-            </table>
-            <div class="mt-2">
-                {{ $articulos->links() }}
+        @if (auth()->user()->is_admin)
+            <div class="flex flex-wrap">
+                @foreach ($articulos as $item)
+                    <div
+                        class="flex flex-col mx-auto my-2 h-1/2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <img wire:click="detalle ({{ $item }})" class="p-8 h-96 rounded-t-lg cursor-pointer"
+                            src="{{ Storage::url($item->imagen) }}" alt="imagen de {{ $item->nombre }}" />
+                        <div class="px-5 pb-5">
+                            <h5 class="text-2xl font-bold text-gray-900 dark:text-white text-center">
+                                {{ $item->nombre }}</h5>
+                            <div class="flex items-center justify-between text-center">
+                                <span class="text-xl font-bold text-gray-900 dark:text-white">
+                                    {{ $item->stock }} unidades</span>
+                                <div>
+                                    <p class="text-xl font-bold text-gray-900 dark:text-white">
+                                        Disponible <span wire:click="cambiarDisponibilidad('{{ $item->id }}')" 
+                                        @class([
+                                            'py-2 rounded-md cursor-pointer',
+                                            'text-red-600 font-bold line-through' => $item->disponible == 'NO',
+                                            'text-green-600 font-bold' => $item->disponible == 'SI',
+                                        ])>{{ $item->disponible }}</span>
+                                    </p>
+                                </div>
+                                <div>
+                                    <button wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled">
+                                        <i class="fas fa-trash text-red-600"></i>
+                                    </button>
+                                    <button wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled">
+                                        <i class="fas fa-edit text-yellow-600"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
+        @else
+            <div class="flex flex-wrap">
+                @foreach ($articulos as $item)
+                    <div
+                        class="flex flex-col mx-auto my-2 h-1/2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <img wire:click="detalle ({{ $item }})" class="p-8 h-96 rounded-t-lg cursor-pointer"
+                            src="{{ Storage::url($item->imagen) }}" alt="imagen de {{ $item->nombre }}" />
+                        <div class="px-5 pb-5">
+                            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                {{ $item->nombre }}</h5>
+                            <div class="flex items-center justify-between">
+                                <span class="text-3xl font-bold text-gray-900 dark:text-white">
+                                    {{ $item->precio }} €</span>
+                                @if (in_array($item->id, $arrayCarro))
+                                    <button wire:click="eliminarArticuloCarro('{{ $item->id }}')"
+                                        wire:loading.attr="disabled">
+                                        <i class="fas fa-minus text-red-600"></i>
+                                    </button>
+                                @else
+                                    <button wire:click="ponerEnCarro('{{ $item->id }}')"
+                                        wire:loading.attr="disabled">
+                                        <i class="fas fa-add text-blue-600"></i>
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+        <div class="mt-2">
+            {{ $articulos->links() }}
         </div>
     @else
         <p class="font-bold italic text-red-600">No se encontró ningun artículo o no se ha creado ninguno</p>
@@ -200,7 +150,8 @@
                         <x-form-radio name="miArticulo.disponible" value="NO" label="No" />
                     </x-form-group>
                     <x-form-input name="miArticulo.precio" type="number" step="0.01" label="Precio del artículo" />
-                    <x-form-input name="miArticulo.stock" type="number" step="1" label="Número de unidades (stock)" />
+                    <x-form-input name="miArticulo.stock" type="number" step="1"
+                        label="Número de unidades (stock)" />
                     <x-form-select name="miArticulo.category_id" :options="$categories" label="Categoría" />
                     <x-form-select name="miArticulo.marca_id" :options="$marcas" label="Marca" />
                 @endwire

@@ -33,13 +33,13 @@ class ShowArticles extends Component
         if (auth()->user()->is_admin) {
             $articulos = Article::where('nombre', 'like', "%{$this->buscar}%")
                 ->orderBy($this->campo, $this->orden)
-                ->paginate(2);
+                ->paginate(3);
         } else {
             // Consulta para usuario normal
             $articulos = Article::where('nombre', 'like', "%{$this->buscar}%")
                 ->where('disponible', 'SI')
                 ->orderBy($this->campo, $this->orden)
-                ->paginate(2);
+                ->paginate(3);
         }
         $arrayCarro = Carro::where('user_id', auth()->user()->id)->pluck('article_id')->toArray();
         // En el render uso la función buscar para los artículos
