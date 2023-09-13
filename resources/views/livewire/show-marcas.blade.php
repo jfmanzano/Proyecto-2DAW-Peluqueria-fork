@@ -8,59 +8,30 @@
         </div>
     </div>
     @if ($marcas->count())
-        <div class="relative overflow-x-auto">
-            <table
-                class="table-auto border-collapse border border-slate-500
-                text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead
-                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700
-                 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="text-center py-3 cursor-pointer border border-slate-600"
-                            wire:click="ordenar('nombre')">
-                            <i class="fas fa-sort mr-2"></i> Nombre
-                        </th>
-                        <th scope="col" class="text-center py-3 border border-slate-600">
-                            Descripcion
-                        </th>
-                        <th scope="col" class="text-center py-3 border border-slate-600">
-                            Imagen
-                        </th>
-                        <th scope="col" class="text-center py-3 border border-slate-600">
-                            Acciones
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($marcas as $item)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="text-center border border-slate-700">
-                                {{ $item->nombre }}
-                            </td>
-                            <td class="text-center border border-slate-700">
-                                <p class="px-2 py-2 rounded-md text-gray-400 font-bold">
-                                    {{ $item->descripcion }}</p>
-                            </td>
-                            <td class="border border-slate-700">
-                                <img src="{{ Storage::url($item->imagen) }}" alt="imagen de {{ $item->nombre }}"
-                                    class="mx-auto w-1/2">
-                            </td>
-                            <td class="text-center border border-slate-700">
-                                <button wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled">
-                                    <i class="fas fa-trash text-red-600"></i>
-                                </button>
-                                <button wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled">
-                                    <i class="fas fa-edit text-yellow-600"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="mt-2">
-                {{ $marcas->links() }}
+    <div class="flex flex-wrap justify-around">
+        @foreach ($marcas as $item)
+            <div class="flex flex-col my-2 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800">
+                <img class="md:object-cover w-full rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                    src="{{ Storage::url($item->imagen) }}" alt="imagen de {{ $item->nombre }}">
+                <div class="flex flex-col justify-between p-4 leading-normal">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {{$item->nombre}}</h5>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{$item->descripcion}}</p>
+                    <div class="flex justify-end">
+                        <button class="mx-2" wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled">
+                            <i class="fas fa-trash text-red-600"></i>
+                        </button>
+                        <button wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled">
+                            <i class="fas fa-edit text-yellow-600"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
+        @endforeach
+    </div>
+    <div class="mt-2">
+        {{ $marcas->links() }}
+    </div>
     @else
         <p class="font-bold italic text-red-600">No se encontró ninguna marca o no se ha creado ninguna</p>
     @endif

@@ -11,7 +11,7 @@
         </x-slot>
         <x-slot name="content">
             @wire('defer')
-                <x-form-input name="nombre" id="nombre" label="Nombre de la categoría" />
+                <x-form-input name="nombre" id="nombre" label="Nombre de la marca" />
                 <x-form-textarea name="descripcion" id="descripcion" label="Descripción" />
             @endwire
             <div class="mt-2 relative">
