@@ -41,6 +41,7 @@ class ShowArticles extends Component
                 ->orderBy($this->campo, $this->orden)
                 ->paginate(3);
         }
+        // Esta variable comprueba los artículos que tenga en el carro el usuario logueado
         $arrayCarro = Carro::where('user_id', auth()->user()->id)->pluck('article_id')->toArray();
         // En el render uso la función buscar para los artículos
         // y creo los arrays categorias y marcas para la ventana modal editar 
@@ -118,10 +119,12 @@ class ShowArticles extends Component
             'miArticulo.nombre' => ['required', 'string', 'min:3', 'unique:articles,nombre,'
                 . $this->miArticulo->id]
         ]);
+        // Si se ha metido una imagen nueva se borra la antigua y guardamos la nueva
         if ($this->imagen) {
             Storage::delete($this->miArticulo->imagen);
             $this->miArticulo->imagen = $this->imagen->store('imagenesarticulos');
         }
+        // Si el stock del artículo se ha puesto 0 cambiamos el disponible a NO
         if ($this->miArticulo->stock == 0) {
             $this->miArticulo->disponible = "NO";
         }
