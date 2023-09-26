@@ -145,9 +145,11 @@
                 <x-responsive-nav-link :href="route('citas.show')" :active="request()->routeIs('citas.show')">
                     <i class="fa-solid fa-address-book"></i> Gestionar Citas
                 </x-responsive-nav-link>
+                @if (auth()->user()->carros()->count())
                 <x-responsive-nav-link :href="route('carro.index')" :active="request()->routeIs('carro.index')">
                     <i class="fa-solid fa-cart-shopping"></i> Gestionar Carro
                 </x-responsive-nav-link>
+                @endif
             @endauth
             <x-responsive-nav-link :href="route('contacto.pintar')" :active="request()->routeIs('contacto.pintar')">
                 <i class="fa-solid fa-envelope"></i> Correo Contacto

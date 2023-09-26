@@ -1,5 +1,24 @@
 <x-miscomponentes.tablas>
     <main>
+        <nav aria-label="Migas de Pan (Breadcrumbs)" class="mb-2 ml-2">
+            <ol class="list-none p-0 inline-flex">
+                <li class="flex items-center">
+                    <a href="/">Inicio</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </li>
+                <li class="flex items-center">
+                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </li>
+                <li class="flex items-center">Artículos</li>
+            </ol>
+        </nav>
         <article class="flex mb-3">
             <div class="flex-1">
                 <x-input class="w-full" type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
@@ -17,7 +36,8 @@
                         <article
                             class="flex flex-col mx-auto my-2 h-1/2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <img wire:click="detalle ({{ $item }})" class="p-8 h-96 rounded-t-lg cursor-pointer"
-                                src="{{ Storage::url($item->imagen) }}" alt="imagen de {{ $item->nombre }}" />
+                                src="{{ Storage::url($item->imagen) }}" alt="imagen de {{ $item->nombre }}"
+                                title="Ver Detalles Del Artículo" />
                             <div class="px-5 pb-5">
                                 <h5 class="text-2xl font-bold text-gray-900 dark:text-white text-center">
                                     {{ $item->nombre }}</h5>
@@ -27,6 +47,7 @@
                                     <div>
                                         <p class="text-xl font-bold text-gray-900 dark:text-white">
                                             Disponible <span wire:click="cambiarDisponibilidad('{{ $item->id }}')"
+                                                title="Cambiar Disponibilidad Artículo"
                                                 @class([
                                                     'py-2 rounded-md cursor-pointer',
                                                     'text-red-600 font-bold line-through' => $item->disponible == 'NO',
@@ -36,10 +57,11 @@
                                     </div>
                                     <div>
                                         <button wire:click="confirmar('{{ $item->id }}')"
-                                            wire:loading.attr="disabled">
+                                            wire:loading.attr="disabled" title="Borrar Artículo">
                                             <i class="fas fa-trash text-red-600"></i>
                                         </button>
-                                        <button wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled">
+                                        <button wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled"
+                                            title="Editar Artículo">
                                             <i class="fas fa-edit text-yellow-600"></i>
                                         </button>
                                     </div>
@@ -53,8 +75,9 @@
                     @foreach ($articulos as $item)
                         <article
                             class="flex flex-col mx-auto my-2 h-1/2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <img wire:click="detalle ({{ $item }})" class="p-8 h-96 rounded-t-lg cursor-pointer"
-                                src="{{ Storage::url($item->imagen) }}" alt="imagen de {{ $item->nombre }}" />
+                            <img wire:click="detalle ({{ $item }})"
+                                class="p-8 h-96 rounded-t-lg cursor-pointer" src="{{ Storage::url($item->imagen) }}"
+                                alt="imagen de {{ $item->nombre }}" title="Ver Detalles Del Artículo" />
                             <div class="px-5 pb-5">
                                 <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                                     {{ $item->nombre }}</h5>
@@ -63,12 +86,12 @@
                                         {{ $item->precio }} €</span>
                                     @if (in_array($item->id, $arrayCarro))
                                         <button wire:click="eliminarArticuloCarro('{{ $item->id }}')"
-                                            wire:loading.attr="disabled">
+                                            wire:loading.attr="disabled" title="Quitar Artículo Del Carro">
                                             <i class="fas fa-minus text-red-600"></i>
                                         </button>
                                     @else
                                         <button wire:click="ponerEnCarro('{{ $item->id }}')"
-                                            wire:loading.attr="disabled">
+                                            wire:loading.attr="disabled" title="Añadir Artículo al Carro">
                                             <i class="fas fa-add text-blue-600"></i>
                                         </button>
                                     @endif
@@ -151,7 +174,8 @@
                             <x-form-radio name="miArticulo.disponible" value="SI" label="Si" />
                             <x-form-radio name="miArticulo.disponible" value="NO" label="No" />
                         </x-form-group>
-                        <x-form-input name="miArticulo.precio" type="number" step="0.01" label="Precio del artículo" />
+                        <x-form-input name="miArticulo.precio" type="number" step="0.01"
+                            label="Precio del artículo" />
                         <x-form-input name="miArticulo.stock" type="number" step="1"
                             label="Número de unidades (stock)" />
                         <x-form-select name="miArticulo.category_id" :options="$categories" label="Categoría" />

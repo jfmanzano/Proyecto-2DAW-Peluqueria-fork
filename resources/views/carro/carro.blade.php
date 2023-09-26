@@ -1,5 +1,24 @@
 <x-app-layout>
     <x-miscomponentes.tablas>
+        <nav aria-label="Migas de Pan (Breadcrumbs)" class="mb-2 ml-2">
+            <ol class="list-none p-0 inline-flex">
+                <li class="flex items-center">
+                    <a href="/">Inicio</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </li>
+                <li class="flex items-center">
+                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </li>
+                <li class="flex items-center">Carro</li>
+            </ol>
+        </nav>
         @if ($carro->count())
             <div class="flex flex-wrap">
                 @foreach ($carro as $item)

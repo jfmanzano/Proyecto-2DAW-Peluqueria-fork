@@ -1,8 +1,8 @@
 <div>
     <div class="flex flex-row-reverse mx-6 my-auto">
         <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-            wire:click="$set('openCrear', true)">
-            <i class="fas fa-add"></i> Nuevo
+            wire:click="$set('openCrear', true)" title="Crear Nueva Categoría">
+            <i class="fas fa-add"></i> Nueva
         </button>
     </div>
     <x-dialog-modal wire:model="openCrear">

@@ -1,5 +1,24 @@
 <x-miscomponentes.tablas>
     <main>
+        <nav aria-label="Migas de Pan (Breadcrumbs)" class="mb-2 ml-2">
+            <ol class="list-none p-0 inline-flex">
+                <li class="flex items-center">
+                    <a href="/">Inicio</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </li>
+                <li class="flex items-center">
+                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </li>
+                <li class="flex items-center">Marcas</li>
+            </ol>
+        </nav>
         <article class="flex mb-3">
             <div class="flex-1">
                 <x-input class="w-full" type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
@@ -21,10 +40,11 @@
                             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $item->descripcion }}</p>
                             <div class="flex justify-end">
                                 <button class="mx-2" wire:click="confirmar('{{ $item->id }}')"
-                                    wire:loading.attr="disabled">
+                                    wire:loading.attr="disabled" title="Borrar Marca">
                                     <i class="fas fa-trash text-red-600"></i>
                                 </button>
-                                <button wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled">
+                                <button wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled"
+                                    title="Editar Marca">
                                     <i class="fas fa-edit text-yellow-600"></i>
                                 </button>
                             </div>

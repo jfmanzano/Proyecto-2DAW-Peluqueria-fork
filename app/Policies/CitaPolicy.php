@@ -37,7 +37,7 @@ class CitaPolicy
      */
     public function update(User $user, Cita $cita): bool
     {
-        return $user->id === $cita->user_id;
+        return $user->id === $cita->user_id || $user->is_admin;
     }
 
     /**
@@ -45,7 +45,7 @@ class CitaPolicy
      */
     public function delete(User $user, Cita $cita): bool
     {
-        return $user->id === $cita->user_id;
+        return $user->id === $cita->user_id || $user->is_admin;
     }
 
     /**

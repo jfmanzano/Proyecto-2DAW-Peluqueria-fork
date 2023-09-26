@@ -18,14 +18,14 @@ class MarcaSeeder extends Seeder
             'nombre' => 'Pantene',
             'descripcion' => 'Es una marca registrada de productos para cuidado del cabello, 
             producido por Procter & Gamble.',
-            'imagen' => 'pantene.jpg'
+            'imagen' => 'fotosamano/pantene.jpg'
         ]);
 
         Marca::create([
             'nombre' => 'Garnier',
             'descripcion' => "Es una marca de cosméticos de mercado masivo de la compañía 
             francesa de cosméticos LOréal. Produce productos para el cuidado del cabello y la piel.",
-            'imagen' => 'garnier.jpg'
+            'imagen' => 'fotosamano/garnier.jpg'
         ]);
 
         Marca::create([
@@ -33,7 +33,7 @@ class MarcaSeeder extends Seeder
             'descripcion' => " Es una empresa neerlandesa de tecnología fundada en la ciudad de Eindhoven 
             en 1891. Es considerada una de las más grandes e importantes del mundo en su campo. 
             Está dedicada, principalmente, a los sectores de la electrónica y la asistencia sanitaria.",
-            'imagen' => 'philips.jpg'
+            'imagen' => 'fotosamano/philips.jpg'
         ]);
 
         Marca::create([
@@ -41,7 +41,7 @@ class MarcaSeeder extends Seeder
             'descripcion' => "Es una marca estadounidense de cuidado personal que fabrica cortapelos, 
             afeitadoras eléctricas, depiladoras y productos para el cuidado del cabello. 
             Es una subsidiaria de Spectrum Brands y Oak Hill Capital.",
-            'imagen' => 'regminton.jpg'
+            'imagen' => 'fotosamano/regminton.jpg'
         ]);
 
         Marca::create([
@@ -49,7 +49,7 @@ class MarcaSeeder extends Seeder
             'descripcion' => "L´Oréal es una empresa francesa de cosméticos y belleza, creada en 1909 
             por el químico Eugène Schueller. Con sede en Clichy, es la compañía de cosméticos 
             más grande del mundo, y cuenta con una sede social en París.",
-            'imagen' => 'loreal.jpg'
+            'imagen' => 'fotosamano/loreal.jpg'
         ]);
     }
 }
