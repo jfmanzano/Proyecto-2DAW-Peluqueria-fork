@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-miscomponentes.tablas>
         <main>
-            <nav aria-label="Migas de Pan (Breadcrumbs)" class="mb-2">
+            <nav aria-label="Migas de Pan (Breadcrumbs)" class="mb-2 ml-2">
                 <ol class="list-none p-0 inline-flex">
                     <li class="flex items-center">
                         <a href="/">Inicio</a>

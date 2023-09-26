@@ -18,7 +18,7 @@
                         </svg>
                     </li>
                 @endauth
-                <li class="flex items-center">Artículos</li>
+                <li class="flex items-center">Contáctanos</li>
             </ol>
         </nav>
         <form name="formulario_contacto" action="{{ route('contacto.procesar') }}" method="POST">
