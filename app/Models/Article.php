@@ -29,9 +29,4 @@ class Article extends Model
     public function carros(){
         return $this->hasMany(Carro::class);
     }
-
-    // public function image(): MorphOne
-    // {
-    //     return $this->morphOne(Image::class, 'imageable');
-    // }
 }

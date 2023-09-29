@@ -104,13 +104,13 @@
             <x-slot name="footer">
                 <div class="flex flex-row-reverse">
                     <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        wire:click="cerrar()">
+                        wire:click="$set('openEditar', false)">
                         <i class="fas fa-xmark mr-2"></i>Cancelar
                     </button>
-                    <button class="mr-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                        wire:click="update()" wire:loading.attr="disabled">
-                        <i class="fas fa-save mr-2"></i>Guardar
-                    </button>
+                    <button class="mr-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+                            wire:click="update" wire:loading.attr="disabled">
+                            <i class="fas fa-save mr-2"></i>Editar
+                        </button>
                 </div>
             </x-slot>
         </x-dialog-modal>

@@ -42,9 +42,8 @@ class ShowCategories extends Component
     public function borrar(Category $category){
         //Borramos el registro de la base de datos
         $category->delete();
-        //Emitimos un mensaje
-        $this->emit('mensaje', 'Categoría borrada con éxito');
-        return redirect('/categories');
+        //Emitimos un mensaje y retornamos a la página de categorías
+        return redirect('/categories')->with('info', 'Categoría borrada con éxito');
     }
 
     // Función para preguntar primero si se quiere borrar la categoría
@@ -74,7 +73,6 @@ class ShowCategories extends Component
             'nombre'=>$this->miCategory->nombre,
             'color'=>$this->miCategory->color,
         ]);
-        
         $this->miCategory = new Category;
         $this->reset('openEditar');
         $this->emit('mensaje', 'Categoría editada con éxito');

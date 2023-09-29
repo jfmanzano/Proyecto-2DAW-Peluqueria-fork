@@ -61,9 +61,8 @@ class ShowCitas extends Component
         $this->authorize('delete', $cita);
         //Borramos el registro de la base de datos
         $cita->delete();
-        //Emitimos un mensaje
-        $this->emit('mensaje', 'Cita borrada con éxito');
-        return redirect('/citas');
+        //Emitimos un mensaje y retornamos a la página de categorías
+        return redirect('/citas')->with('info', 'Cita borrada con éxito');
     }
 
     // Función para preguntar primero si se quiere borrar la cita
@@ -90,9 +89,9 @@ class ShowCitas extends Component
         $fechaActual = $fechaActual->format('d/m/Y H:i');
         return [
             'miCita.fecha' => [
-                'required', 'date_format:d/m/Y H:i', 'after_or_equal:' . $fechaActual,
+                'required', 'date_format:d/m/Y H:i', 'after_or_equal:' . $fechaActual, 
                 'regex:~^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4} (0[9]|1[0-9]|2[0-1]):[0-5][0-9]$~',
-                'unique:citas,fecha'
+                'unique:citas,fecha,'. $this->miCita->id,
             ],
             'miCita.tipo' => ['required', 'in:Pelado,Lavado,Tinte,Peinado'],
         ];
@@ -101,7 +100,11 @@ class ShowCitas extends Component
     public function update()
     {
         $this->validate();
-        $this->miCita->save();
+        $this->miCita->update([
+            'fecha'=>$this->miCita->fecha,
+            'tipo'=>$this->miCita->tipo,
+        ]);
+        $this->miCita = new Cita;
         $this->emit('mensaje', 'Cita Actualizada');
         $this->reset(['openEditar']);
     }

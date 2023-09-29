@@ -31,14 +31,14 @@
             <article class="flex flex-wrap justify-around">
                 @foreach ($marcas as $item)
                     <div
-                        class="flex flex-col my-2 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800">
-                        <img class="md:object-cover w-full rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                        class="flex flex-col my-2 w-full items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800">
+                        <img class="object-cover w-full rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                             src="{{ Storage::url($item->imagen) }}" alt="imagen de {{ $item->nombre }}">
                         <div class="flex flex-col justify-between p-4 leading-normal">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                 {{ $item->nombre }}</h5>
                             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $item->descripcion }}</p>
-                            <div class="flex justify-end">
+                            <div class="flex justify-center">
                                 <button class="mx-2" wire:click="confirmar('{{ $item->id }}')"
                                     wire:loading.attr="disabled" title="Borrar Marca">
                                     <i class="fas fa-trash text-red-600"></i>
@@ -67,7 +67,7 @@
                 <x-slot name="content">
                     @wire($miMarca, 'defer')
                         <x-form-input name="miMarca.nombre" label="Nombre de la marca" />
-                        <x-form-textarea name="miMarca.descripcion" id="descripcion" label="Descripción" />
+                        <x-form-textarea name="miMarca.descripcion" label="Descripción" />
                     @endwire
                     <div class="mt-2 relative">
                         @if ($imagen)

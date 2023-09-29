@@ -72,9 +72,8 @@ class ShowArticles extends Component
         Storage::delete($articulo->imagen);
         //Borramos el registro de la base de datos
         $articulo->delete();
-        //Emitimos un mensaje
-        $this->emit('mensaje', 'Artículo borrado con éxito');
-        return redirect('/articles');
+        //Emitimos un mensaje y retornamos a la página de categorías
+        return redirect('/articles')->with('info', 'Artículo borrado con éxito');
     }
 
     // Función para preguntar primero si se quiere borrar el artículo
@@ -128,7 +127,17 @@ class ShowArticles extends Component
         if ($this->miArticulo->stock == 0) {
             $this->miArticulo->disponible = "NO";
         }
-        $this->miArticulo->save();
+        $this->miArticulo->update([
+            'nombre' => $this->miArticulo->nombre,
+            'descripcion' =>$this->miArticulo->descripcion,
+            'disponible' => $this->miArticulo->disponible,
+            'precio' => $this->miArticulo->precio,
+            'stock' => $this->miArticulo->stock,
+            'imagen' => $this->miArticulo->imagen,
+            'category_id' => $this->miArticulo->category_id,
+            'marca_id' => $this->miArticulo->marca_id,
+        ]);
+        $this->miArticulo = new Article;
         $this->emit('mensaje', 'Artículo Actualizado');
         $this->reset(['openEditar', 'imagen']);
     }
@@ -153,7 +162,7 @@ class ShowArticles extends Component
             'article_id' => $id,
             'cantidad' => 1
         ]);
-        return redirect('/articles');
+        return redirect('/articles')->with('info','Artículo añadido al carro');
     }
 
     // Esta función comprueba primero si el artículo está en el carro o no, si no está en el carro
@@ -179,6 +188,6 @@ class ShowArticles extends Component
     {
         $carro = Carro::where('article_id', $id);
         $carro->delete();
-        return redirect('/articles');
+        return redirect('/articles')->with('info','Artículo eliminado del carro');
     }
 }

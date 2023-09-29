@@ -48,9 +48,8 @@ class ShowMarcas extends Component
         Storage::delete($marca->imagen);
         //Borramos el registro de la base de datos
         $marca->delete();
-        //Emitimos un mensaje
-        $this->emit('mensaje', 'Marca borrada con éxito');
-        return redirect('/marcas');
+        //Emitimos un mensaje y retornamos a la página de marcas
+        return redirect('/marcas')->with('info', 'Marca borrada con éxito');
     }
 
     // Función para preguntar primero si se quiere borrar la categoría
@@ -82,7 +81,12 @@ class ShowMarcas extends Component
             Storage::delete($this->miMarca->imagen);
             $this->miMarca->imagen = $this->imagen->store('imagenesmarcas');
         }
-        $this->miMarca->save();
+        $this->miMarca->update([
+            'nombre'=>$this->miMarca->nombre,
+            'descripcion'=>$this->miMarca->descripcion,
+            'imagen'=>$this->miMarca->imagen
+        ]);
+        $this->miMarca = new Marca;
         $this->emit('mensaje', 'Marca Actualizada');
         $this->reset(['openEditar', 'imagen']);
     }

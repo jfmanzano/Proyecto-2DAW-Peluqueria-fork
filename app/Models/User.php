@@ -33,6 +33,18 @@ class User extends Authenticatable
         'external_id',
         'external_auth',
     ];
+    //Relación N:M con Articles
+    public function articles(){
+        return $this->belongsToMany(Article::class)->withTimestamps();
+    }
+    //Relación 1:N con Citas
+    public function citas(){
+        return $this->hasMany(Cita::class);
+    }
+    //Relación 1:N con Carro
+    public function carros(){
+        return $this->hasMany(Carro::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -63,17 +75,6 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-    //Relación N:M con Articles
-    public function articles(){
-        return $this->belongsToMany(Article::class)->withTimestamps();
-    }
-    //Relación 1:N con Citas
-    public function citas(){
-        return $this->hasMany(Cita::class);
-    }
-    //Relación 1:N con Carro
-    public function carros(){
-        return $this->hasMany(Carro::class);
-    }
+    
 
 }

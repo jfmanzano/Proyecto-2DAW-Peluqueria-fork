@@ -58,10 +58,6 @@ class CarroController extends Controller
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Carro $carro)
     {
         // dd($carro->article->stock);
@@ -71,16 +67,11 @@ class CarroController extends Controller
         $carro->update(['cantidad'=> $request->cantidad]);
         return redirect()->route('carro.index')->with('info','Cantidad editada');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Carro $carro)
     {
         $carro->delete();
         return redirect()->route('carro.index')->with('info','Artículo eliminado del carro');
     }
-
     // Esta función la utilizo para borrar todo el carro
     public function clear(){
         $listaCarro = Carro::where('user_id', auth()->user()->id)->get();
@@ -89,7 +80,6 @@ class CarroController extends Controller
         }
         return redirect()->route('articulos.show')->with('info','Carro borrado');
     }
-
     // Función que aumenta la cantidad de artículos en el carro
     public function subir(Carro $carro){
         $carro->update([

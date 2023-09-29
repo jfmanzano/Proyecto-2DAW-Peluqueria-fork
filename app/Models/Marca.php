@@ -15,8 +15,4 @@ class Marca extends Model
     public function articles(){
         return $this->hasMany(Article::class);
     }
-    // public function image(): MorphOne
-    // {
-    //     return $this->morphOne(Image::class, 'imageable');
-    // }
 }
