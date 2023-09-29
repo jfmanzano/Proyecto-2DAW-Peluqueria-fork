@@ -25,7 +25,7 @@
                         <img class="p-8 h-96 rounded-t-lg" src="{{ Storage::url($item->article->imagen) }}"
                             alt="imagen de {{ $item->article->nombre }}" />
                         <div class="px-5 pb-5">
-                            <h5 class="text-2xl font-bold text-gray-900 dark:text-white text-center">
+                            <h5 class="text-2xl py-2 font-bold text-gray-900 dark:text-white text-center">
                                 {{ $item->article->nombre }}</h5>
                             <div class="flex items-center justify-around text-center">
                                 <form action="{{ route('carro.update', $item) }}" method="POST">
@@ -48,13 +48,17 @@
                                     </form>
                                 </div>
                             </div>
+                            <h5 class="text-2xl py-2 font-bold text-gray-900 dark:text-white text-center">
+                               Total Artículo: {{ $totalArticulo[$item->id] }} €</h5>
+                            <h5 class="text-2xl py-2 font-bold text-gray-900 dark:text-white text-center">
+                                Cantidad Actual: {{ $item->cantidad }}</h5>
                         </div>
                     </div>
                 @endforeach
             </div>
             <div class="flex flex-wrap justify-between mx-2">
                 <div class="flex flex-col">
-                    Total del carro: {{ $total }} €
+                    Total del carro: {{ $totalCarro }} €
                 </div>
                 <div class="flex flex-col">
                     <form action="{{ route('carro.clear') }}" method="POST">

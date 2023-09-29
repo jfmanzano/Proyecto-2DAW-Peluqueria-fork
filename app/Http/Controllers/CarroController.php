@@ -14,17 +14,20 @@ class CarroController extends Controller
 
      // Creo la variable carro para mostralo en la vista, la variable carroCompleto se encarga
      // de coger todos los artículos y se complementará con la variable total para mostrar
-     //el precio total de todo el carro
+     // el precio total de todo el carro, además pongo la variable totalArticulo para
+     // mostrar el precio con la suma de la cantidad de un único artículo
     public function index()
     {
         $carro = Carro::where('user_id', auth()->user()->id)
         ->paginate(3);
         $carroCompleto = Carro::where('user_id', auth()->user()->id)->get();
-        $total = 0;
+        $totalArticulo = [];
+        $totalCarro = 0;
         foreach($carroCompleto as $item){
-            $total = $item->cantidad * $item->article->precio + $total;
+            $totalArticulo [$item->id] = $item->cantidad * $item->article->precio;
+            $totalCarro = $item->cantidad * $item->article->precio + $totalCarro;
         }
-        return view('carro.carro', compact('carro','total'));
+        return view('carro.carro', compact('carro','totalCarro','totalArticulo'));
     }
 
     /**
