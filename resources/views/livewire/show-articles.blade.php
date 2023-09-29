@@ -4,17 +4,15 @@
             <ol class="list-none p-0 inline-flex">
                 <li class="flex items-center">
                     <a href="/">Inicio</a>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
+                </li>
+                <li class="mx-2">
+                    <i class="fa-solid fa-chevron-right "></i>
                 </li>
                 <li class="flex items-center">
                     <a href="{{ route('dashboard') }}">Dashboard</a>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
+                </li>
+                <li class="mx-2">
+                    <i class="fa-solid fa-chevron-right "></i>
                 </li>
                 <li class="flex items-center">Artículos</li>
             </ol>
