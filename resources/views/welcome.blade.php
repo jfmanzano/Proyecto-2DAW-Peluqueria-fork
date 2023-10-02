@@ -9,14 +9,21 @@
             </figure>
         </main>
         <footer class="text-center">
-            <figure class="flex flex-wrap items-center justify-center">
-                <figcaption class="flex">Página realizada por: Daniel Calatrava González</figcaption>
-                <img alt="Licencia de Creative Commons" style="border-width:0"
-                    src="https://i.creativecommons.org/l/by/4.0/88x31.png" class="flex ml-2" />
-            </figure>
-            <p>Esta obra está bajo una <a rel="license" target="_blank" style="color: blue;"
-                    href="http://creativecommons.org/licenses/by/4.0/">licencia de Creative Commons
-                    Reconocimiento 4.0 Internacional</a>.
+            <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+                <a property="dct:title" rel="cc:attributionURL" href="https://github.com/dancg/Proyecto-2DAW-Peluqueria"
+                    class="hover:text-blue-600 text-blue-900" target="_blank">Peluquerias
+                    Dbarb</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                    href="https://github.com/dancg" class="hover:text-blue-600 text-blue-900" target="_blank"> Daniel
+                    Calatrava González</a> is licensed under
+                <a class="flex flex-wrap justify-center items-center hover:text-blue-600 text-blue-900"
+                    href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+                    rel="license noopener noreferrer"> Attribution 4.0
+                    International
+                    <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" class="flex"
+                        src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1">
+                    <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" class="flex"
+                        src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1">
+                </a>
             </p>
         </footer>
     </x-miscomponentes.tablas>
