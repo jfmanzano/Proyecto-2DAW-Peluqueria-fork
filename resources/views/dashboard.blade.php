@@ -4,7 +4,7 @@
             <nav aria-label="Migas de Pan (Breadcrumbs)" class="mb-2 ml-2">
                 <ol class="list-none p-0 inline-flex">
                     <li class="flex items-center">
-                        <a href="/">Inicio</a>
+                        <a href="/" class="hover:text-blue-700 text-blue-900">Inicio</a>
                     </li>
                     <li class="mx-2">
                         <i class="fa-solid fa-chevron-right "></i>
