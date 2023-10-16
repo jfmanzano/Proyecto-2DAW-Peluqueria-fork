@@ -52,6 +52,14 @@
                         @foreach ($citas as $item)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td class="py-4 border border-slate-700">
+                                    <!--En la base de datos la fecha la tengo guardada con una T
+                                    como separador, para que el usuario no vea la T me creo una variable
+                                    en la que guardo la T y con el str_replace la elimino
+                                    y pongo un espacio vacío-->
+                                    <?php
+                                    $letras = ['T'];
+                                    $item->fecha = str_replace($letras, ' ', $item->fecha);
+                                    ?>
                                     {{ $item->fecha }}
                                 </td>
                                 <td class="py-4 border border-slate-700">
@@ -89,8 +97,8 @@
             </x-slot>
             <x-slot name="content">
                 @wire($miCita, 'defer')
-                    <x-form-input name="miCita.fecha" min="{{ $fechaActual }}" label="Fecha y hora de la cita"
-                        placeholder="Ejemplo: 24/12/2023 09:30" />
+                    <x-form-input type="datetime-local" name="miCita.fecha" min="{{ $fechaActual }}"
+                        label="Fecha y hora de la cita" />
                     <x-form-group name="miCita.tipo" label="Tipo de Cita" inline>
                         <x-form-radio name="miCita.tipo" value="Pelado" label="Pelado" />
                         <x-form-radio name="miCita.tipo" value="Lavado" label="Lavado" />
@@ -106,9 +114,9 @@
                         <i class="fas fa-xmark mr-2"></i>Cancelar
                     </button>
                     <button class="mr-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-                            wire:click="update" wire:loading.attr="disabled">
-                            <i class="fas fa-save mr-2"></i>Editar
-                        </button>
+                        wire:click="update" wire:loading.attr="disabled">
+                        <i class="fas fa-save mr-2"></i>Editar
+                    </button>
                 </div>
             </x-slot>
         </x-dialog-modal>

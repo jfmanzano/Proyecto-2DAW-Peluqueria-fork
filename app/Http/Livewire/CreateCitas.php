@@ -18,19 +18,24 @@ class CreateCitas extends Component
         // En el render creo una variable que contenga la fecha actual usando la librería Carbon
         // y le doy el formato
         $fechaActual = Carbon::now();
-        $fechaActual = $fechaActual->format('d/m/Y H:i');
+        $fechaActual = $fechaActual->format('Y-m-dTh:i');
         return view('livewire.create-citas',compact('fechaActual'));
     }
 
     protected function rules(): array
     {
         // Validaciones
-        //Aquí meto la variable fechaActual para que compruebe que no se creen citas antes del día de hoy
+        // Aquí meto la variable fechaActual para que compruebe que no se creen citas antes del día de hoy
         $fechaActual = Carbon::now()->tz('Europe/Madrid');
-        $fechaActual = $fechaActual->format('d/m/Y H:i');
+        $fechaActual = $fechaActual->format('Y-m-dTh:i');
+        // Aquí me creo una variable para borrar las letras de la fecha actual ya que va con CEST
+        // por el timezone(tz). La T no la borro porque la necesito para la validación del datetime-local
+        // ya que va con una T como separador
+        $letras = ["C","E","S"];
+        $fechaActual = str_replace($letras,"",$fechaActual);
         return [
-            'fecha' => ['required', 'date_format:d/m/Y H:i', 'after_or_equal:'.$fechaActual,  
-            'regex:~^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4} (0[9]|1[0-9]|2[0-1]):[0-5][0-9]$~',
+            'fecha' => ['required', 'after_or_equal:'.$fechaActual,  
+            'regex:/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])T(0[9]|1\d|2[01]):[0-5]\d$/',
             'unique:citas,fecha'],
             'tipo' => ['required', 'in:Pelado,Lavado,Tinte,Peinado'],
         ];

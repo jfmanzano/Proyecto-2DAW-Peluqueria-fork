@@ -11,8 +11,8 @@
         </x-slot>
         <x-slot name="content">
             @wire('defer')
-            <x-form-input name="fecha" id="fecha"
-            min="{{$fechaActual}}" label="Fecha y hora de la cita" placeholder="Ejemplo: 24/12/2023 09:30"/>            
+            <x-form-input type="datetime-local" name="fecha" id="fecha"
+            min="{{$fechaActual}}" label="Fecha y hora de la cita"/>            
             <x-form-group name="tipo" label="Tipo de Cita" inline>
                 <x-form-radio name="tipo" value="Pelado" label="Pelado" />
                 <x-form-radio name="tipo" value="Lavado" label="Lavado" />

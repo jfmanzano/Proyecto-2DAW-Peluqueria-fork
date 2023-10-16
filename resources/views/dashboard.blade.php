@@ -34,7 +34,7 @@
                 </a>
                 <a class="shadow-md rounded-lg my-4 text-blue-600 hover:text-gray-900
                 hover:bg-blue-500 border border-blue-600 hover:border-white cursor-pointer mx-2"
-                    href="{{ route('citas.show') }}"><i class="fa-solid fa-address-book fa-6x" title="Ver Citas"></i>
+                    href="{{ route('citas.show') }}"><i class="fa-solid fa-address-book fa-6x" title="Gestionar Citas"></i>
                 </a>
                 @if (auth()->user()->carros()->count())
                     <a class="shadow-md rounded-lg my-4 text-blue-600 hover:text-gray-900

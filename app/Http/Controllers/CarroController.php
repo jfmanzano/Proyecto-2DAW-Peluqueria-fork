@@ -13,7 +13,7 @@ class CarroController extends Controller
      */
 
      // Creo la variable carro para mostralo en la vista, la variable carroCompleto se encarga
-     // de coger todos los artículos y se complementará con la variable total para mostrar
+     // de coger todos los artículos y se complementará con la variable totalCarro para mostrar
      // el precio total de todo el carro, además pongo la variable totalArticulo para
      // mostrar el precio con la suma de la cantidad de un único artículo
     public function index()
@@ -70,10 +70,13 @@ class CarroController extends Controller
         $carro->update(['cantidad'=> $request->cantidad]);
         return redirect()->route('carro.index')->with('info','Cantidad editada');
     }
+    //Esta función elimina un artículo del carro
     public function destroy(Carro $carro)
     {
         $carro->delete();
+        if(Carro::where('user_id', auth()->user()->id)->count())
         return redirect()->route('carro.index')->with('info','Artículo eliminado del carro');
+        else return redirect()->route('articulos.show')->with('info','No quedan artículos, carro borrado');
     }
     // Esta función la utilizo para borrar todo el carro
     public function clear(){
