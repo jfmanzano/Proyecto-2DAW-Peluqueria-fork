@@ -10,6 +10,22 @@
                         <i class="fa-solid fa-chevron-right "></i>
                     </li>
                     <li class="flex items-center">Dashboard</li>
+                    <li class="mx-2">
+                       <i class="fa-solid fa-arrow-right"></i>
+                    </li>
+                    <li>
+                        @if (!auth()->user()->is_admin)
+                            <a href="{{ Storage::url('Manual_Usuario_Peluquerias_Dbarb.pdf') }}" 
+                                download="usuario.pdf" target="_blank" title="Manual de Usuario">
+                                <i class="fa-solid fa-circle-info text-blue-700"></i>
+                            </a>
+                        @else
+                            <a href="{{ Storage::url('Manual_Administrador_Peluquerias_Dbarb.pdf') }}"
+                                download="administrador.pdf" target="_blank" title="Manual de Administrador">
+                                <i class="fa-solid fa-circle-info text-blue-700"></i>
+                            </a>
+                        @endif
+                    </li>
                 </ol>
             </nav>
             <article class="text-4xl text-center"> Peluquerias Dbarb</article>
@@ -34,7 +50,8 @@
                 </a>
                 <a class="shadow-md rounded-lg my-4 text-blue-600 hover:text-gray-900
                 hover:bg-blue-500 border border-blue-600 hover:border-white cursor-pointer mx-2"
-                    href="{{ route('citas.show') }}"><i class="fa-solid fa-address-book fa-6x" title="Gestionar Citas"></i>
+                    href="{{ route('citas.show') }}"><i class="fa-solid fa-address-book fa-6x"
+                        title="Gestionar Citas"></i>
                 </a>
                 @if (auth()->user()->carros()->count())
                     <a class="shadow-md rounded-lg my-4 text-blue-600 hover:text-gray-900

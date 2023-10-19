@@ -17,6 +17,14 @@
                 <li class="flex items-center">Carro</li>
             </ol>
         </nav>
+        <div class="flex flex-row-reverse mx-6 my-auto">
+            <a href="{{ route('articulos.show') }}" class="max-sm:mx-auto">
+                <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                    title="Ir a Artículos">
+                    <i class="fa-solid fa-tags"></i><span class="max-sm:hidden"> Ir a Artículos</span>
+                </button>
+            </a>
+        </div>
         @if ($carro->count())
             <div class="flex flex-wrap">
                 @foreach ($carro as $item)

@@ -21,6 +21,16 @@
             <div class="flex-1">
                 <x-input class="w-full" type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
             </div>
+            @if (auth()->user()->carros()->count())
+                <div class="flex flex-row-reverse mx-6 my-auto">
+                    <a href="{{ route('carro.index') }}">
+                        <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                            title="Ir al Carro">
+                            <i class="fa-solid fa-cart-shopping"></i><span class="max-sm:hidden"> Ir al Carro</span>
+                        </button>
+                    </a>
+                </div>
+            @endif
             @if (auth()->user()->is_admin)
                 <div>
                     @livewire('create-articles')
