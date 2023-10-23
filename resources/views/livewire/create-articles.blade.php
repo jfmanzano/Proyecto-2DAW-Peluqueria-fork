@@ -1,9 +1,15 @@
 <div>
     <div class="flex flex-row-reverse mx-6 my-auto">
-        <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+        <button data-tooltip-target="tooltip-narticulo"
+            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
             wire:click="$set('openCrear', true)" title="Crear Nuevo Artículo">
             <i class="fas fa-add"></i> <span class="max-sm:hidden"> Nuevo</span>
         </button>
+        <div id="tooltip-narticulo" role="tooltip"
+            class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+            Crear Nuevo Artículo
+            <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
     </div>
     <x-dialog-modal wire:model="openCrear">
         <x-slot name="title">
@@ -11,16 +17,17 @@
         </x-slot>
         <x-slot name="content">
             @wire('defer')
-            <x-form-input name="nombre" id="nombre" label="Nombre del artículo" />
-            <x-form-textarea name="descripcion" id="descripcion" label="Descripción" />
-            <x-form-group name="disponible" label="Artículo Disponible?" inline>
-                <x-form-radio name="disponible" value="SI" label="Si" />
-                <x-form-radio name="disponible" value="NO" label="No" />
-            </x-form-group>
-            <x-form-input name="precio" type="number" step="0.01" id="precio" label="Precio del artículo" />
-            <x-form-input name="stock" type="number" step="1" id="stock" label="Número de unidades (stock)" />
-            <x-form-select name="category_id" :options="$categories" label="Categoría"/>
-            <x-form-select name="marca_id" :options="$marcas" label="Marca"/>
+                <x-form-input name="nombre" id="nombre" label="Nombre del artículo" />
+                <x-form-textarea name="descripcion" id="descripcion" label="Descripción" />
+                <x-form-group name="disponible" label="Artículo Disponible?" inline>
+                    <x-form-radio name="disponible" value="SI" label="Si" />
+                    <x-form-radio name="disponible" value="NO" label="No" />
+                </x-form-group>
+                <x-form-input name="precio" type="number" step="0.01" id="precio" label="Precio del artículo" />
+                <x-form-input name="stock" type="number" step="1" id="stock"
+                    label="Número de unidades (stock)" />
+                <x-form-select name="category_id" :options="$categories" label="Categoría" />
+                <x-form-select name="marca_id" :options="$marcas" label="Marca" />
             @endwire
             <div class="mt-2 relative">
                 @if ($imagen)
@@ -36,9 +43,9 @@
                 @endif
                 <input id="imgCrear" type="file" name="imagen" wire:model="imagen" accept="image/*"
                     class="hidden" />
-                    @error('imagen')
-                    <p class="text-xs text-red-500 mt-2 italic">{{$message}}</p>
-                    @enderror
+                @error('imagen')
+                    <p class="text-xs text-red-500 mt-2 italic">{{ $message }}</p>
+                @enderror
             </div>
         </x-slot>
         <x-slot name="footer">

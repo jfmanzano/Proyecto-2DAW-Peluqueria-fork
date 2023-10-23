@@ -3,13 +3,25 @@
         <nav aria-label="Migas de Pan (Breadcrumbs)" class="mb-2 ml-2">
             <ol class="list-none p-0 inline-flex">
                 <li class="flex items-center">
-                    <a href="/" class="hover:text-blue-700 text-blue-900">Inicio</a>
+                    <a data-tooltip-target="tooltip-inicio" href="/" class="hover:text-blue-700 text-blue-900"
+                        title="Ir a Inicio">Inicio</a>
+                    <div id="tooltip-inicio" role="tooltip"
+                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Ir a Inicio
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </li>
                 <li class="mx-2">
                     <i class="fa-solid fa-chevron-right "></i>
                 </li>
                 <li class="flex items-center">
-                    <a href="{{ route('dashboard') }}" class="hover:text-blue-700 text-blue-900">Dashboard</a>
+                    <a data-tooltip-target="tooltip-dashboard" href="{{ route('dashboard') }}"
+                        class="hover:text-blue-700 text-blue-900" title="Ir a Dashboard">Dashboard</a>
+                    <div id="tooltip-dashboard" role="tooltip"
+                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Ir a Dashboard
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </li>
                 <li class="mx-2">
                     <i class="fa-solid fa-chevron-right "></i>
@@ -70,14 +82,26 @@
                                         {{ $item->user->name }}</p>
                                 </td>
                                 <td class="py-4 border border-slate-700">
-                                    <button wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled"
+                                    <button data-tooltip-target="tooltip-borrarCita"
+                                        wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled"
                                         title="Borrar Cita">
                                         <i class="fas fa-trash text-red-600"></i>
                                     </button>
-                                    <button wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled"
+                                    <div id="tooltip-borrarCita" role="tooltip"
+                                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                        Borrar Cita
+                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                    </div>
+                                    <button data-tooltip-target="tooltip-editarCita"
+                                        wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled"
                                         title="Editar Cita">
                                         <i class="fas fa-edit text-yellow-600"></i>
                                     </button>
+                                    <div id="tooltip-editarCita" role="tooltip"
+                                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                        Editar Cita
+                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

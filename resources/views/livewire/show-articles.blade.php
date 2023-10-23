@@ -3,13 +3,25 @@
         <nav aria-label="Migas de Pan (Breadcrumbs)" class="mb-2 ml-2">
             <ol class="list-none p-0 inline-flex">
                 <li class="flex items-center">
-                    <a href="/" class="hover:text-blue-700 text-blue-900">Inicio</a>
+                    <a data-tooltip-target="tooltip-inicio" href="/" class="hover:text-blue-700 text-blue-900"
+                        title="Ir a Inicio">Inicio</a>
+                    <div id="tooltip-inicio" role="tooltip"
+                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Ir a Inicio
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </li>
                 <li class="mx-2">
                     <i class="fa-solid fa-chevron-right "></i>
                 </li>
                 <li class="flex items-center">
-                    <a href="{{ route('dashboard') }}" class="hover:text-blue-700 text-blue-900">Dashboard</a>
+                    <a data-tooltip-target="tooltip-dashboard" href="{{ route('dashboard') }}"
+                        class="hover:text-blue-700 text-blue-900" title="Ir a Dashboard">Dashboard</a>
+                    <div id="tooltip-dashboard" role="tooltip"
+                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Ir a Dashboard
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </li>
                 <li class="mx-2">
                     <i class="fa-solid fa-chevron-right "></i>
@@ -23,11 +35,16 @@
             </div>
             @if (auth()->user()->carros()->count())
                 <div class="flex flex-row-reverse mx-6 my-auto">
-                    <a href="{{ route('carro.index') }}">
+                    <a data-tooltip-target="tooltip-carro" href="{{ route('carro.index') }}">
                         <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
                             title="Ir al Carro">
                             <i class="fa-solid fa-cart-shopping"></i><span class="max-sm:hidden"> Ir al Carro</span>
                         </button>
+                        <div id="tooltip-carro" role="tooltip"
+                            class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Ir al Carro
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
                     </a>
                 </div>
             @endif
@@ -43,9 +60,14 @@
                     @foreach ($articulos as $item)
                         <article
                             class="flex flex-col mx-auto my-2 h-1/2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <img wire:click="detalle ({{ $item }})" class="p-8 h-96 rounded-t-lg cursor-pointer"
-                                src="{{ Storage::url($item->imagen) }}" alt="imagen de {{ $item->nombre }}"
-                                title="Ver Detalles Del Artículo" />
+                            <img data-tooltip-target="tooltip-imagen" wire:click="detalle ({{ $item }})"
+                                class="p-8 h-96 rounded-t-lg cursor-pointer" src="{{ Storage::url($item->imagen) }}"
+                                alt="imagen de {{ $item->nombre }}" title="Ver Detalles Del Artículo" />
+                            <div id="tooltip-imagen" role="tooltip"
+                                class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                Ver Detalles Del Artículo
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
                             <div class="px-5 pb-5">
                                 <h5 class="text-2xl font-bold text-gray-900 dark:text-white text-center">
                                     {{ $item->nombre }}</h5>
@@ -54,7 +76,8 @@
                                         {{ $item->stock }} unidades</span>
                                     <div>
                                         <p class="text-xl font-bold text-gray-900 dark:text-white">
-                                            Disponible <span wire:click="cambiarDisponibilidad('{{ $item->id }}')"
+                                            Disponible <span data-tooltip-target="tooltip-disponible"
+                                                wire:click="cambiarDisponibilidad('{{ $item->id }}')"
                                                 title="Cambiar Disponibilidad Artículo"
                                                 @class([
                                                     'py-2 rounded-md cursor-pointer',
@@ -62,16 +85,33 @@
                                                     'text-green-600 font-bold' => $item->disponible == 'SI',
                                                 ])>{{ $item->disponible }}</span>
                                         </p>
+                                        <div id="tooltip-disponible" role="tooltip"
+                                            class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                            Cambiar Disponibilidad Artículo
+                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                        </div>
                                     </div>
                                     <div>
-                                        <button wire:click="confirmar('{{ $item->id }}')"
-                                            wire:loading.attr="disabled" title="Borrar Artículo">
+                                        <button data-tooltip-target="tooltip-borrarArticulo"
+                                            wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled"
+                                            title="Borrar Artículo">
                                             <i class="fas fa-trash text-red-600"></i>
                                         </button>
-                                        <button wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled"
+                                        <div id="tooltip-borrarArticulo" role="tooltip"
+                                            class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                            Borrar Artículo
+                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                        </div>
+                                        <button data-tooltip-target="tooltip-editarArticulo"
+                                            wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled"
                                             title="Editar Artículo">
                                             <i class="fas fa-edit text-yellow-600"></i>
                                         </button>
+                                        <div id="tooltip-editarArticulo" role="tooltip"
+                                            class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                            Editar Artículo
+                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -93,15 +133,25 @@
                                     <span class="text-3xl font-bold text-gray-900 dark:text-white">
                                         {{ $item->precio }} €</span>
                                     @if (in_array($item->id, $arrayCarro))
-                                        <button wire:click="eliminarArticuloCarro('{{ $item->id }}')"
+                                        <button data-tooltip-target="tooltip-eliminarArticuloCarro" wire:click="eliminarArticuloCarro('{{ $item->id }}')"
                                             wire:loading.attr="disabled" title="Quitar Artículo Del Carro">
                                             <i class="fas fa-minus text-red-600"></i>
                                         </button>
+                                        <div id="tooltip-eliminarArticuloCarro" role="tooltip"
+                                            class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                            Quitar Artículo Del Carro
+                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                        </div>
                                     @else
-                                        <button wire:click="ponerEnCarro('{{ $item->id }}')"
+                                        <button data-tooltip-target="tooltip-anadirArticuloCarro" wire:click="ponerEnCarro('{{ $item->id }}')"
                                             wire:loading.attr="disabled" title="Añadir Artículo al Carro">
                                             <i class="fas fa-add text-blue-600"></i>
                                         </button>
+                                        <div id="tooltip-anadirArticuloCarro" role="tooltip"
+                                            class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                            Añadir Artículo al Carro
+                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                        </div>
                                     @endif
                                 </div>
                             </div>

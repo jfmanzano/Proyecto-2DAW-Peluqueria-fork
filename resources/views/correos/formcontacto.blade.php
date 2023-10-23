@@ -3,14 +3,26 @@
         <nav aria-label="Migas de Pan (Breadcrumbs)" class="mb-2 ml-2">
             <ol class="list-none p-0 inline-flex">
                 <li class="flex items-center">
-                    <a href="/" class="hover:text-blue-700 text-blue-900">Inicio</a>
-                    <li class="mx-2">
-                        <i class="fa-solid fa-chevron-right "></i>
-                    </li>
+                    <a data-tooltip-target="tooltip-inicio" href="/" class="hover:text-blue-700 text-blue-900"
+                        title="Ir a Inicio">Inicio</a>
+                    <div id="tooltip-inicio" role="tooltip"
+                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Ir a Inicio
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
+                </li>
+                <li class="mx-2">
+                    <i class="fa-solid fa-chevron-right "></i>
                 </li>
                 @auth
                     <li class="flex items-center">
-                        <a href="{{ route('dashboard') }}" class="hover:text-blue-700 text-blue-900">Dashboard</a>
+                        <a data-tooltip-target="tooltip-dashboard" href="{{ route('dashboard') }}"
+                            class="hover:text-blue-700 text-blue-900" title="Ir a Dashboard">Dashboard</a>
+                        <div id="tooltip-dashboard" role="tooltip"
+                            class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Ir a Dashboard
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
                     </li>
                     <li class="mx-2">
                         <i class="fa-solid fa-chevron-right "></i>
@@ -31,14 +43,25 @@
             @endauth
             <x-form-textarea name="contenido" rows="4" placeholder="Déjenos su mensaje..." label="Contenido" />
             <div class="flex flex-row-reverse mt-3">
-                <button type="submit"
-                    class="bg-blue-500 ml-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button data-tooltip-target="tooltip-enviar" type="submit"
+                    class="bg-blue-500 ml-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    title="Enviar Correo Contacto">
                     <i class="fas fa-paper-plane"></i> Enviar
                 </button>
-                <a href="{{ route('dashboard') }}"
-                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                <div id="tooltip-enviar" role="tooltip"
+                    class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                    Enviar Correo Contacto
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
+                <a data-tooltip-target="tooltip-cancelar" href="{{ route('inicio') }}"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" title="Cancelar">
                     <i class="fas fa-backward"></i> Cancelar
                 </a>
+                <div id="tooltip-cancelar" role="tooltip"
+                    class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                    Cancelar
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
             </div>
         </form>
     </x-miscomponentes.tablas>

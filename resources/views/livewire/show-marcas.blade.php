@@ -3,13 +3,25 @@
         <nav aria-label="Migas de Pan (Breadcrumbs)" class="mb-2 ml-2">
             <ol class="list-none p-0 inline-flex">
                 <li class="flex items-center">
-                    <a href="/" class="hover:text-blue-700 text-blue-900">Inicio</a> 
+                    <a data-tooltip-target="tooltip-inicio" href="/" class="hover:text-blue-700 text-blue-900"
+                        title="Ir a Inicio">Inicio</a>
+                    <div id="tooltip-inicio" role="tooltip"
+                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Ir a Inicio
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </li>
                 <li class="mx-2">
                     <i class="fa-solid fa-chevron-right "></i>
                 </li>
                 <li class="flex items-center">
-                    <a href="{{ route('dashboard') }}" class="hover:text-blue-700 text-blue-900">Dashboard</a>
+                    <a data-tooltip-target="tooltip-dashboard" href="{{ route('dashboard') }}"
+                        class="hover:text-blue-700 text-blue-900" title="Ir a Dashboard">Dashboard</a>
+                    <div id="tooltip-dashboard" role="tooltip"
+                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Ir a Dashboard
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </li>
                 <li class="mx-2">
                     <i class="fa-solid fa-chevron-right "></i>
@@ -37,14 +49,26 @@
                                 {{ $item->nombre }}</h5>
                             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $item->descripcion }}</p>
                             <div class="flex justify-center">
-                                <button class="mx-2" wire:click="confirmar('{{ $item->id }}')"
+                                <button data-tooltip-target="tooltip-borrarMarca" data-tooltip-placement="left"
+                                    class="mx-2" wire:click="confirmar('{{ $item->id }}')"
                                     wire:loading.attr="disabled" title="Borrar Marca">
                                     <i class="fas fa-trash text-red-600"></i>
                                 </button>
-                                <button wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled"
+                                <div id="tooltip-borrarMarca" role="tooltip"
+                                    class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    Borrar Marca
+                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                </div>
+                                <button data-tooltip-target="tooltip-editarMarca" data-tooltip-placement="right"
+                                    wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled"
                                     title="Editar Marca">
                                     <i class="fas fa-edit text-yellow-600"></i>
                                 </button>
+                                <div id="tooltip-editarMarca" role="tooltip"
+                                    class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    Editar Marca
+                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                </div>
                             </div>
                         </div>
                     </div>
