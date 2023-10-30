@@ -123,9 +123,14 @@
                     @foreach ($articulos as $item)
                         <article
                             class="flex flex-col mx-auto my-2 h-1/2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <img wire:click="detalle ({{ $item }})"
+                            <img data-tooltip-target="tooltip-detalle" wire:click="detalle ({{ $item }})"
                                 class="p-8 h-96 rounded-t-lg cursor-pointer" src="{{ Storage::url($item->imagen) }}"
                                 alt="imagen de {{ $item->nombre }}" title="Ver Detalles Del Artículo" />
+                            <div id="tooltip-detalle" role="tooltip"
+                                class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                Ver detalle del Artículo
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
                             <div class="px-5 pb-5">
                                 <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                                     {{ $item->nombre }}</h5>
@@ -133,7 +138,8 @@
                                     <span class="text-3xl font-bold text-gray-900 dark:text-white">
                                         {{ $item->precio }} €</span>
                                     @if (in_array($item->id, $arrayCarro))
-                                        <button data-tooltip-target="tooltip-eliminarArticuloCarro" wire:click="eliminarArticuloCarro('{{ $item->id }}')"
+                                        <button data-tooltip-target="tooltip-eliminarArticuloCarro"
+                                            wire:click="eliminarArticuloCarro('{{ $item->id }}')"
                                             wire:loading.attr="disabled" title="Quitar Artículo Del Carro">
                                             <i class="fas fa-minus text-red-600"></i>
                                         </button>
@@ -143,15 +149,18 @@
                                             <div class="tooltip-arrow" data-popper-arrow></div>
                                         </div>
                                     @else
-                                        <button data-tooltip-target="tooltip-anadirArticuloCarro" wire:click="ponerEnCarro('{{ $item->id }}')"
-                                            wire:loading.attr="disabled" title="Añadir Artículo al Carro">
-                                            <i class="fas fa-add text-blue-600"></i>
-                                        </button>
-                                        <div id="tooltip-anadirArticuloCarro" role="tooltip"
-                                            class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                            Añadir Artículo al Carro
-                                            <div class="tooltip-arrow" data-popper-arrow></div>
-                                        </div>
+                                        @if ($item->stock > 0)
+                                            <button data-tooltip-target="tooltip-anadirArticuloCarro"
+                                                wire:click="ponerEnCarro('{{ $item->id }}')"
+                                                wire:loading.attr="disabled" title="Añadir Artículo al Carro">
+                                                <i class="fas fa-add text-blue-600"></i>
+                                            </button>
+                                            <div id="tooltip-anadirArticuloCarro" role="tooltip"
+                                                class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                                Añadir Artículo al Carro
+                                                <div class="tooltip-arrow" data-popper-arrow></div>
+                                            </div>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -191,9 +200,15 @@
                                 <p class="text-gray-700 text-base mb-4">
                                     Precio: {{ $articulo->precio }} €
                                 </p>
-                                <p class="text-gray-700 text-base mb-4">
-                                    Stock: {{ $articulo->stock }} unidades
-                                </p>
+                                @if ($articulo->stock > 0)
+                                    <p class="text-gray-700 text-base mb-4">
+                                        Stock: {{ $articulo->stock }} unidades
+                                    </p>
+                                @else
+                                    <p class="text-gray-700 text-base mb-4">
+                                        Stock: Sin unidades
+                                    </p>
+                                @endif
                                 <p class="text-gray-700 text-base mb-4"
                                     style="background-color: {{ $articulo->category->color }}">
                                     Categoría: {{ $articulo->category->nombre }}
