@@ -3,7 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Proyecto Peluquerias Dbarb" />
+    <meta name="keywords" content="html,css,javascript,bootstrap,tailwind,php,laravel" />
+    <meta name="author" content="Daniel Calatrava González" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>

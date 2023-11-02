@@ -34,11 +34,15 @@
                 <x-input class="w-full" type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
             </div>
             @if (auth()->user()->carros()->count())
-                <div class="flex flex-row-reverse mx-6 my-auto">
+                <div class="flex flex-row-reverse mx-6 my-auto relative">
                     <a data-tooltip-target="tooltip-carro" href="{{ route('carro.index') }}">
                         <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
                             title="Ir al Carro">
                             <i class="fa-solid fa-cart-shopping"></i><span class="max-sm:hidden"> Ir al Carro</span>
+                            <div
+                                class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">
+                                {{ auth()->user()->carros()->count() }}
+                            </div>
                         </button>
                         <div id="tooltip-carro" role="tooltip"
                             class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
