@@ -61,7 +61,8 @@ class ShowCategories extends Component
     {
         // Validaciones
         return [
-            'miCategory.nombre' => ['required', 'string', 'min:3', 'unique:categories,nombre,'.$this->miCategory->id],
+            'miCategory.nombre' => ['required', 'string', 'min:3', 'max:255',
+            'unique:categories,nombre,'.$this->miCategory->id],
             'miCategory.color' => ['nullable','regex:/#[A-Fa-f0-9]{6}/']
         ];
     }

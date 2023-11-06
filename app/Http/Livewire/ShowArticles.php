@@ -115,7 +115,7 @@ class ShowArticles extends Component
     public function update()
     {
         $this->validate([
-            'miArticulo.nombre' => ['required', 'string', 'min:3', 'unique:articles,nombre,'
+            'miArticulo.nombre' => ['required', 'string', 'min:3', 'max:255', 'unique:articles,nombre,'
                 . $this->miArticulo->id]
         ]);
         // Si se ha metido una imagen nueva se borra la antigua y guardamos la nueva

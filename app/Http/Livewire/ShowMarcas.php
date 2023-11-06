@@ -75,7 +75,7 @@ class ShowMarcas extends Component
 
     public function update(){
         $this->validate([
-            'miMarca.nombre'=>['required', 'string', 'min:3', 'unique:marcas,nombre,'.$this->miMarca->id]
+            'miMarca.nombre'=>['required', 'string', 'min:3', 'max:255', 'unique:marcas,nombre,'.$this->miMarca->id]
         ]);
         if($this->imagen){
             Storage::delete($this->miMarca->imagen);

@@ -16,7 +16,7 @@ class CreateCategories extends Component
     {
         // Validaciones
         return [
-            'nombre' => ['required', 'string', 'min:3', 'unique:categories,nombre'],
+            'nombre' => ['required', 'string', 'min:3', 'max:255', 'unique:categories,nombre'],
             'color' => ['required','regex:/#[A-Fa-f0-9]{6}/']
         ];
     }
