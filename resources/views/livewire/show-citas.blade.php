@@ -3,13 +3,25 @@
         <nav aria-label="Migas de Pan (Breadcrumbs)" class="mb-2 ml-2">
             <ol class="list-none p-0 inline-flex">
                 <li class="flex items-center">
-                    <a href="/" class="hover:text-blue-700 text-blue-900">Inicio</a>
+                    <a data-tooltip-target="tooltip-inicio" href="/" class="hover:text-blue-700 text-blue-900"
+                        title="Ir a Inicio">Inicio</a>
+                    <div id="tooltip-inicio" role="tooltip"
+                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Ir a Inicio
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </li>
                 <li class="mx-2">
                     <i class="fa-solid fa-chevron-right "></i>
                 </li>
                 <li class="flex items-center">
-                    <a href="{{ route('dashboard') }}" class="hover:text-blue-700 text-blue-900">Dashboard</a>
+                    <a data-tooltip-target="tooltip-dashboard" href="{{ route('dashboard') }}"
+                        class="hover:text-blue-700 text-blue-900" title="Ir a Dashboard">Dashboard</a>
+                    <div id="tooltip-dashboard" role="tooltip"
+                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Ir a Dashboard
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </li>
                 <li class="mx-2">
                     <i class="fa-solid fa-chevron-right "></i>
@@ -52,6 +64,14 @@
                         @foreach ($citas as $item)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td class="py-4 border border-slate-700">
+                                    <!--En la base de datos la fecha la tengo guardada con una T
+                                    como separador, para que el usuario no vea la T me creo una variable
+                                    en la que guardo la T y con el str_replace la elimino
+                                    y pongo un espacio vacío-->
+                                    <?php
+                                    $letras = ['T'];
+                                    $item->fecha = str_replace($letras, ' ', $item->fecha);
+                                    ?>
                                     {{ $item->fecha }}
                                 </td>
                                 <td class="py-4 border border-slate-700">
@@ -62,14 +82,26 @@
                                         {{ $item->user->name }}</p>
                                 </td>
                                 <td class="py-4 border border-slate-700">
-                                    <button wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled"
+                                    <button data-tooltip-target="tooltip-borrarCita"
+                                        wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled"
                                         title="Borrar Cita">
                                         <i class="fas fa-trash text-red-600"></i>
                                     </button>
-                                    <button wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled"
+                                    <div id="tooltip-borrarCita" role="tooltip"
+                                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                        Borrar Cita
+                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                    </div>
+                                    <button data-tooltip-target="tooltip-editarCita"
+                                        wire:click="editar('{{ $item->id }}')" wire:loading.attr="disabled"
                                         title="Editar Cita">
                                         <i class="fas fa-edit text-yellow-600"></i>
                                     </button>
+                                    <div id="tooltip-editarCita" role="tooltip"
+                                        class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                        Editar Cita
+                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -89,8 +121,8 @@
             </x-slot>
             <x-slot name="content">
                 @wire($miCita, 'defer')
-                    <x-form-input name="miCita.fecha" min="{{ $fechaActual }}" label="Fecha y hora de la cita"
-                        placeholder="Ejemplo: 24/12/2023 09:30" />
+                    <x-form-input type="datetime-local" name="miCita.fecha" min="{{ $fechaActual }}"
+                        label="Fecha y hora de la cita (horario de 09:00 a 22:00)" />
                     <x-form-group name="miCita.tipo" label="Tipo de Cita" inline>
                         <x-form-radio name="miCita.tipo" value="Pelado" label="Pelado" />
                         <x-form-radio name="miCita.tipo" value="Lavado" label="Lavado" />
@@ -106,9 +138,9 @@
                         <i class="fas fa-xmark mr-2"></i>Cancelar
                     </button>
                     <button class="mr-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-                            wire:click="update" wire:loading.attr="disabled">
-                            <i class="fas fa-save mr-2"></i>Editar
-                        </button>
+                        wire:click="update" wire:loading.attr="disabled">
+                        <i class="fas fa-save mr-2"></i>Editar
+                    </button>
                 </div>
             </x-slot>
         </x-dialog-modal>

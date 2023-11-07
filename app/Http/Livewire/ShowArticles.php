@@ -115,7 +115,7 @@ class ShowArticles extends Component
     public function update()
     {
         $this->validate([
-            'miArticulo.nombre' => ['required', 'string', 'min:3', 'unique:articles,nombre,'
+            'miArticulo.nombre' => ['required', 'string', 'min:3', 'max:255', 'unique:articles,nombre,'
                 . $this->miArticulo->id]
         ]);
         // Si se ha metido una imagen nueva se borra la antigua y guardamos la nueva
@@ -123,13 +123,10 @@ class ShowArticles extends Component
             Storage::delete($this->miArticulo->imagen);
             $this->miArticulo->imagen = $this->imagen->store('imagenesarticulos');
         }
-        // Si el stock del artículo se ha puesto 0 cambiamos el disponible a NO
-        if ($this->miArticulo->stock == 0) {
-            $this->miArticulo->disponible = "NO";
-        }
+
         $this->miArticulo->update([
             'nombre' => $this->miArticulo->nombre,
-            'descripcion' =>$this->miArticulo->descripcion,
+            'descripcion' => $this->miArticulo->descripcion,
             'disponible' => $this->miArticulo->disponible,
             'precio' => $this->miArticulo->precio,
             'stock' => $this->miArticulo->stock,
@@ -156,38 +153,65 @@ class ShowArticles extends Component
     // Esta función añade al carro el artículo seleccionado
     public function ponerEnCarro($id)
     {
-        self::comprobarCarro($id);
+        // Si la función comprobarCarro devuelve false volverá a la página de artículos
+        // informando de que no hay stock de ese artículo
+        if (!self::comprobarCarro($id)) {
+            return redirect()->route('articulos.show')->with('info', 'No hay artículos disponibles');
+        }
+        self::quitarStock(Article::where('id',$id)->first());
         Carro::create([
             'user_id' => auth()->user()->id,
             'article_id' => $id,
             'cantidad' => 1
         ]);
-        return redirect('/articles')->with('info','Artículo añadido al carro');
-    }
-
-    // Esta función comprueba primero si el artículo está en el carro o no, si no está en el carro
-    // comprueba si el artículo está disponible para añadirse al carro, si no está disponible
-    // lanza un error 404 (not found)
-    private function comprobarCarro($id)
-    {
-        $arrayCarro = Carro::where('user_id', auth()->user()->id)->pluck('article_id')->toArray();
-        if (!in_array($id, $arrayCarro)) {
-            $articulo = Article::where('id', $id)->first();
-            if ($articulo->disponible == "SI") {
-                return;
-            } else {
-                abort(404);
-            }
-        } else {
-            abort(404);
-        }
+        return redirect('/articles')->with('info', 'Artículo añadido al carro');
     }
 
     // Esta función elimina del carro el artículo seleccionado
     public function eliminarArticuloCarro($id)
     {
-        $carro = Carro::where('article_id', $id);
+        $carro = Carro::where('article_id', $id)->first();
+        self::anadirStock(Article::where('id',$id)->first(), $carro);
         $carro->delete();
-        return redirect('/articles')->with('info','Artículo eliminado del carro');
+        return redirect('/articles')->with('info', 'Artículo eliminado del carro');
+    }
+
+    // Esta función comprueba primero si el artículo tiene stock, si es 0 devuelve false. 
+    // Luego comprueba si está en el carro o no, si no está en el carro comprueba 
+    // si el artículo está disponible para añadirse al carro, si no está disponible
+    // devuelve false para que en la función ponerEnELCarro muestre error
+    private function comprobarCarro($id)
+    {
+        $articulo = Article::where('id', $id)->first();
+        $arrayCarro = Carro::where('user_id', auth()->user()->id)->pluck('article_id')->toArray();
+        if ($articulo->stock == 0) {
+            return false;
+            //
+        }
+        if (!in_array($id, $arrayCarro)) {
+            if ($articulo->disponible == "SI") {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    // Función que aumenta el stock del artículo (Modelo Article)
+    public function anadirStock($articulo, $articuloCarro)
+    {
+        $articulo->update([
+            'stock' => $articulo->stock + $articuloCarro->cantidad
+        ]);
+    }
+
+    // Función que quita el stock del artículo (Modelo Article)
+    public function quitarStock($articulo)
+    {
+        $articulo->update([
+            'stock' => $articulo->stock -1
+        ]);
     }
 }

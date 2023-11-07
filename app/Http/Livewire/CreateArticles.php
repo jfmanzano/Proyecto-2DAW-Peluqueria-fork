@@ -34,7 +34,7 @@ class CreateArticles extends Component
     {
         // Validaciones
         return [
-            'nombre' => ['required', 'string', 'min:3', 'unique:articles,nombre'],
+            'nombre' => ['required', 'string', 'min:3', 'max:255', 'unique:articles,nombre'],
             'descripcion' => ['required','string', 'min:10'],
             'disponible' => ['required', 'in:SI,NO'],
             'precio' => ['required', 'numeric', 'min:1', 'max:999.99'],

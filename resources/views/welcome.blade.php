@@ -1,30 +1,28 @@
 <x-app-layout>
     <x-miscomponentes.tablas>
         <main class="text-center">
+            <div class="flex flex-row-reverse mb-6 mr-6">
+                <a data-tooltip-target="tooltip-manualpr" href="{{ Storage::url('pdfs/Manual_Primer_Usuario_Peluquerias_Dbarb.pdf') }}"
+                    download="primer_usuario.pdf" target="_blank" title="Manual de Primer Usuario">
+                    <i class="fa-solid fa-circle-info text-blue-700 fa-2xl"></i>
+                </a>
+                <div id="tooltip-manualpr" role="tooltip"
+                    class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                    Manual de Primer Usuario
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
+            </div>
             <h1 class="font-effect-neon text-4xl">Peluquerias Dbarb</h1>
             <figure>
-                <a href="{{ route('dashboard') }}">
+                <a data-tooltip-target="tooltip-dashboard" data-tooltip-placement="right" href="{{ route('dashboard') }}">
                     <img src="{{ Storage::url('logo.png') }}" alt="imagen del logo" class="mx-auto">
                 </a>
+                <div id="tooltip-dashboard" role="tooltip"
+                    class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                    Ir a Dashboard
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
             </figure>
         </main>
-        <footer class="text-center">
-            <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
-                <a property="dct:title" rel="cc:attributionURL" href="https://github.com/dancg/Proyecto-2DAW-Peluqueria"
-                    class="hover:text-blue-700 text-blue-900" target="_blank">Peluquerias
-                    Dbarb</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
-                    href="https://github.com/dancg" class="hover:text-blue-700 text-blue-900" target="_blank"> Daniel
-                    Calatrava González</a> is licensed under
-                <a class="flex flex-wrap justify-center items-center hover:text-blue-700 text-blue-900"
-                    href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
-                    rel="license noopener noreferrer"> Attribution 4.0
-                    International
-                    <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" class="flex"
-                        src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1">
-                    <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" class="flex"
-                        src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1">
-                </a>
-            </p>
-        </footer>
     </x-miscomponentes.tablas>
 </x-app-layout>

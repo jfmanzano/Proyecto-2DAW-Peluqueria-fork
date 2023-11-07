@@ -1,9 +1,15 @@
 <div>
     <div class="flex flex-row-reverse mx-6 my-auto">
-        <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+        <button data-tooltip-target="tooltip-ncita"
+            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
             wire:click="$set('openCrear', true)" title="Crear Nueva Cita">
-            <i class="fas fa-add"></i> Nueva
+            <i class="fas fa-add"></i> <span class="max-sm:hidden"> Nueva</span>
         </button>
+        <div id="tooltip-ncita" role="tooltip"
+            class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+            Crear Nueva Cita
+            <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
     </div>
     <x-dialog-modal wire:model="openCrear">
         <x-slot name="title">
@@ -11,14 +17,14 @@
         </x-slot>
         <x-slot name="content">
             @wire('defer')
-            <x-form-input name="fecha" id="fecha"
-            min="{{$fechaActual}}" label="Fecha y hora de la cita" placeholder="Ejemplo: 24/12/2023 09:30"/>            
-            <x-form-group name="tipo" label="Tipo de Cita" inline>
-                <x-form-radio name="tipo" value="Pelado" label="Pelado" />
-                <x-form-radio name="tipo" value="Lavado" label="Lavado" />
-                <x-form-radio name="tipo" value="Tinte" label="Tinte" />
-                <x-form-radio name="tipo" value="Peinado" label="Peinado" />
-            </x-form-group>
+                <x-form-input type="datetime-local" name="fecha" id="fecha" min="{{ $fechaActual }}"
+                    label="Fecha y hora de la cita (horario de 09:00 a 22:00)" />
+                <x-form-group name="tipo" label="Tipo de Cita" inline>
+                    <x-form-radio name="tipo" value="Pelado" label="Pelado" />
+                    <x-form-radio name="tipo" value="Lavado" label="Lavado" />
+                    <x-form-radio name="tipo" value="Tinte" label="Tinte" />
+                    <x-form-radio name="tipo" value="Peinado" label="Peinado" />
+                </x-form-group>
             @endwire
         </x-slot>
         <x-slot name="footer">

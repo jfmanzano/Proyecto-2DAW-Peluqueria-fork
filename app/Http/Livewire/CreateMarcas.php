@@ -19,7 +19,7 @@ class CreateMarcas extends Component
     {
         // Validaciones
         return [
-            'nombre' => ['required', 'string', 'min:3', 'unique:marcas,nombre'],
+            'nombre' => ['required', 'string', 'min:3', 'max:255', 'unique:marcas,nombre'],
             'descripcion' => ['required','string', 'min:10'],
             'imagen' => ['required','image', 'max:2048']
         ];

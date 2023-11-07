@@ -3,7 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Proyecto Peluquerias Dbarb" />
+    <meta name="keywords" content="html,css,javascript,bootstrap,tailwind,php,laravel" />
+    <meta name="author" content="Daniel Calatrava González" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -19,7 +23,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <!--CDN Flowbite-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
+    <!--Script Flowbite-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
     <!--Sweetalert2-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Scripts -->
@@ -48,6 +55,43 @@
         <main>
             {{ $slot }}
         </main>
+        <footer class="text-center">
+            <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+                <a data-tooltip-target="tooltip-proyecto" property="dct:title" rel="cc:attributionURL"
+                    href="https://github.com/dancg/Proyecto-2DAW-Peluqueria" class="hover:text-blue-700 text-blue-900"
+                    target="_blank">Peluquerias
+                    Dbarb</a> by 
+            <div id="tooltip-proyecto" role="tooltip"
+                class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                Ver Proyecto en GitHub
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+            <a data-tooltip-target="tooltip-autor" rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                href="https://github.com/dancg" class="hover:text-blue-700 text-blue-900" target="_blank"> Daniel
+                Calatrava González</a>
+            <div id="tooltip-autor" role="tooltip"
+                class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                Ver Perfil Autor en GitHub
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+            is licensed under <a data-tooltip-target="tooltip-creativecommons"
+                class="flex flex-wrap justify-center items-center hover:text-blue-700 text-blue-900"
+                href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+                rel="license noopener noreferrer"> Attribution 4.0
+                International
+                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" class="flex"
+                    src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1">
+                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" class="flex"
+                    src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1">
+            </a>
+            <div id="tooltip-creativecommons" role="tooltip"
+                class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                Ver Licencias en Creative Commons
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+            </p>
+            <div class="h-6"></div>
+        </footer>
     </div>
 
     @stack('modals')
@@ -75,7 +119,7 @@
                 confirmButtonText: 'Si, bórralo!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('show-categories','borrarCategory', categoryId)
+                    Livewire.emitTo('show-categories', 'borrarCategory', categoryId)
                 }
             })
         })
@@ -91,7 +135,7 @@
                 confirmButtonText: 'Si, bórralo!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('show-marcas','borrarMarca', marcaId)
+                    Livewire.emitTo('show-marcas', 'borrarMarca', marcaId)
                 }
             })
         })
@@ -107,7 +151,7 @@
                 confirmButtonText: 'Si, bórralo!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('show-articles','borrarArticulo', articleId)
+                    Livewire.emitTo('show-articles', 'borrarArticulo', articleId)
                 }
             })
         })
@@ -123,7 +167,7 @@
                 confirmButtonText: 'Si, bórralo!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('show-citas','borrarCita', citaId)
+                    Livewire.emitTo('show-citas', 'borrarCita', citaId)
                 }
             })
         })
@@ -136,7 +180,6 @@
                 timer: 1500
             })
         @endif
-
     </script>
 </body>
 
