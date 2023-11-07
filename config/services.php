@@ -37,5 +37,11 @@ return [
         'client_secret' => env('GOOGLE_OAUTH_KEY'),
         'redirect' => '/google-callback',
     ],
+    
+    //Configuración de API Stripe
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET')
+    ],
 
 ];
