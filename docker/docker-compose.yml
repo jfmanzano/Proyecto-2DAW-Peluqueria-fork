@@ -129,12 +129,12 @@ services:
             - mysql
         restart: "always"
 networks:
-    webservice:
+    peluqeria:
         driver: bridge
         ipam:
             driver: default
             config:
                 - subnet: ${NETWORK_SUBNET}
 volumes:
-    mysql-webservice:
+    mysql-peluqeria:
         external: true
