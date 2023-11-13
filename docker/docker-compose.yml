@@ -129,12 +129,13 @@ services:
             - mysql
         restart: "always"
 networks:
-    peluqeria:
+    peluqueria:
         driver: bridge
         ipam:
             driver: default
             config:
                 - subnet: ${NETWORK_SUBNET}
 volumes:
-    mysql-peluqeria:
+    mysql-peluqueria:
         external: true
+ 
