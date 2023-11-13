@@ -9,34 +9,21 @@ use Livewire\WithPagination;
 class ShowCategories extends Component
 {
     use WithPagination;
-
-    public string $buscar = "", $campo="nombre", $orden="desc";
     public Category $miCategory;
     public bool $openEditar = false;
 
     //Variable que recibe los mensajes de la vista
     protected $listeners = [
-        "refreshCategories"=>"render",
         'borrarCategory'=>'borrar'
     ];
 
     public function render()
     {
-        // En el render uso la función buscar para las categorías
-        $categorias = Category::where('nombre', 'like', "%{$this->buscar}%")
-        ->orderBy($this->campo, $this->orden)
-        ->paginate(2);
+        // En el render uso la función buscar para las categorías.
+        // Al insertar el Datatable no hace falta ninguna barra de búsqueda
+        // ya que la lleva implementada, ni necesita paginate
+        $categorias = Category::get();
         return view('livewire.show-categories', compact('categorias'));
-    }
-
-    //Función para ordenar el contenido de la tabla
-    public function ordenar(string $campo){
-        $this->orden = ($this->orden == "asc") ? "desc" : "asc";
-        $this->campo = $campo;
-    }
-
-    public function updatingBuscar(){
-        $this->resetPage();
     }
 
     public function borrar(Category $category){

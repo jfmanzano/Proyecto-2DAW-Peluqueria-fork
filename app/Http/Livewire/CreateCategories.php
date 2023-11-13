@@ -38,10 +38,7 @@ class CreateCategories extends Component
             "nombre"=>$this->nombre,
             "color"=>$this->color
         ]);
-
-        $this->reset(["openCrear","nombre","color"]);
-        $this->emitTo("show-categories","refreshCategories");
-        $this->emit("mensaje", "Categoría Creada");
+        return redirect()->route("categorias.show")->with("info", "Categoría Creada");
     }
 
     // Función para cerrar la ventana modal si se pulsa el botón cancelar
