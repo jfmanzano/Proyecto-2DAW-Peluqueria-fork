@@ -14,45 +14,28 @@ class ShowCitas extends Component
     use WithPagination;
     use AuthorizesRequests; //Esto es necesario para las políticas
 
-    public string $buscar = "", $campo = "fecha", $orden = "desc";
     public bool $openEditar = false;
     public Cita $miCita;
 
     // Variable que recibe los mensajes de la vista
     protected $listeners = [
-        'refreshCitas' => 'render',
         'borrarCita' => 'borrar'
     ];
     public function render()
     {
         // En el render compruebo que si el usuario es admin puede ver las citas de todos los usuarios
-        // y si no es admin solo puede ver las suyas
+        // y si no es admin solo puede ver las suyas.
+        // Al insertar el Datatable no hace falta ninguna barra de búsqueda
+        // ya que la lleva implementada, ni necesita paginate
         if (auth()->user()->is_admin) {
-            $citas = Cita::where('fecha', 'like', "%{$this->buscar}%")
-                ->orderBy($this->campo, $this->orden)
-                ->paginate(2);
+            $citas = Cita::get();
         } else {
-            $citas = Cita::where('fecha', 'like', "%{$this->buscar}%")
-                ->where('user_id', auth()->user()->id)
-                ->orderBy($this->campo, $this->orden)
-                ->paginate(2);
+            $citas = Cita::where('user_id', auth()->user()->id)->get();
         }
         // Aquí recojo la fecha actual para el editar con la librería Carbon
         $fechaActual = Carbon::now();
         $fechaActual = $fechaActual->format('Y-m-dTh:i');
         return view('livewire.show-citas', compact('citas', 'fechaActual'));
-    }
-
-    //Función para ordenar el contenido de la tabla
-    public function ordenar(string $campo)
-    {
-        $this->orden = ($this->orden == "asc") ? "desc" : "asc";
-        $this->campo = $campo;
-    }
-
-    public function updatingBuscar()
-    {
-        $this->resetPage();
     }
 
     public function borrar(Cita $cita)
@@ -110,7 +93,10 @@ class ShowCitas extends Component
             'tipo'=>$this->miCita->tipo,
         ]);
         $this->miCita = new Cita;
-        $this->emit('mensaje', 'Cita Actualizada');
-        $this->reset(['openEditar']);
+        return redirect()->route("citas.show")->with("info", "Cita Actualizada");
+    }
+    // Función para cerrar la ventana modal si se pulsa el botón cancelar
+    public function cerrar(){
+        return redirect()->route("citas.show");
     }
 }

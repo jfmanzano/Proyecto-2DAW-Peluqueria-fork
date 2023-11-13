@@ -35,53 +35,58 @@
             </div>
         </article>
         @if ($categorias->count())
-        <table id="categorias" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($categorias as $item)
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <td class="text-center" style="background-color: {{ $item->color }}">
-                            <span @class([
-                                'px-2 rounded-xl dark:bg-gray-500 bg-white
-                                dark:text-white border border-slate-700',
-                            ])>{{ $item->nombre }}</span>
-                        </td>
-                        <td class="text-center">
-                            <span @class([
-                                'px-2 rounded-xl dark:bg-gray-500 bg-white
-                                dark:text-white border border-slate-700',
-                            ])>
-                                <button data-tooltip-target="tooltip-borrarCategoria"
-                                    data-tooltip-placement="left" wire:click="confirmar('{{ $item->id }}')"
-                                    wire:loading.attr="disabled" title="Borrar Categoría">
-                                    <i class="fas fa-trash text-red-600"></i>
-                                </button>
-                                <div id="tooltip-borrarCategoria" role="tooltip"
-                                    class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                    Borrar Categoría
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                                <button data-tooltip-target="tooltip-editarCategoria"
-                                    data-tooltip-placement="right" wire:click="editar('{{ $item->id }}')"
-                                    wire:loading.attr="disabled" title="Editar Categoría">
-                                    <i class="fas fa-edit text-yellow-600"></i>
-                                </button>
-                                <div id="tooltip-editarCategoria" role="tooltip"
-                                    class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                    Editar Categoría
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                            </span>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+            <article style="overflow: auto">
+                <table id="categorias"
+                    class="display text-center dark:text-white border border-slate-700 bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                    style="width:100%">
+                    <thead>
+                        <tr class="border border-slate-700 dark:border-slate-300">
+                            <th class="border border-slate-700 dark:border-slate-300">Nombre</th>
+                            <th class="border border-slate-700 dark:border-slate-300">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($categorias as $item)
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="border border-slate-700 dark:border-slate-300"
+                                    style="background-color: {{ $item->color }}">
+                                    <span @class([
+                                        'px-2 rounded-xl dark:bg-gray-500 bg-white
+                                        dark:text-white border border-slate-700',
+                                    ])>{{ $item->nombre }}</span>
+                                </td>
+                                <td class="border border-slate-700 dark:border-slate-300">
+                                    <span @class([
+                                        'px-2 rounded-xl dark:bg-gray-500 bg-white
+                                        dark:text-white border border-slate-700',
+                                    ])>
+                                        <button data-tooltip-target="tooltip-borrarCategoria"
+                                            data-tooltip-placement="left" wire:click="confirmar('{{ $item->id }}')"
+                                            wire:loading.attr="disabled" title="Borrar Categoría">
+                                            <i class="fas fa-trash text-red-600"></i>
+                                        </button>
+                                        <div id="tooltip-borrarCategoria" role="tooltip"
+                                            class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                            Borrar Categoría
+                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                        </div>
+                                        <button data-tooltip-target="tooltip-editarCategoria"
+                                            data-tooltip-placement="right" wire:click="editar('{{ $item->id }}')"
+                                            wire:loading.attr="disabled" title="Editar Categoría">
+                                            <i class="fas fa-edit text-yellow-600"></i>
+                                        </button>
+                                        <div id="tooltip-editarCategoria" role="tooltip"
+                                            class="max-sm:hidden absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                            Editar Categoría
+                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                        </div>
+                                    </span>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </article>
         @else
             <p class="font-bold italic text-red-600">No se encontró ninguna categoría o no se ha creado ninguna</p>
         @endif

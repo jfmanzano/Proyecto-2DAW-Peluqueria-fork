@@ -21,7 +21,8 @@ $maxWidth = [
     class="jetstream-modal fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50"
     style="display: none;"
 >
-    <div x-show="show" class="fixed inset-0 transform transition-all" x-on:click="show = false" x-transition:enter="ease-out duration-300"
+{{-- Edito la línea 25 en x-on:click="show = true" para que todas las modales de mi aplicación sean estáticas --}}
+    <div x-show="show" class="fixed inset-0 transform transition-all" x-on:click="show = true" x-transition:enter="ease-out duration-300"
                     x-transition:enter-start="opacity-0"
                     x-transition:enter-end="opacity-100"
                     x-transition:leave="ease-in duration-200"

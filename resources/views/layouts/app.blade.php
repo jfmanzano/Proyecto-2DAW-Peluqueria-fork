@@ -182,6 +182,12 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emitTo('show-citas', 'borrarCita', citaId)
+                // Esta parte es necesaria para que mantenga la forma del datatable, ya que si
+                // no está puesto se deforma la tabla y habría que recargar la página para arreglarlo.
+                }else {
+                    var cancelar = document.createElement("a");
+                    cancelar.href = "{{route('citas.show')}}";
+                    cancelar.click();
                 }
             })
         })

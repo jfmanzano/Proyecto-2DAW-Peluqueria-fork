@@ -29,59 +29,49 @@
                 <li class="flex items-center">Citas</li>
             </ol>
         </nav>
-        <article class="flex mb-3">
-            <div class="flex-1">
-                <x-input class="w-full" type="search" placeholder="Buscar..." wire:model="buscar"></x-input>
-            </div>
-            <div>
-                @livewire('create-citas')
-            </div>
+        <article class="flex flex-row-reverse mb-3">
+            @livewire('create-citas')
         </article>
         @if ($citas->count())
-            <article class="relative overflow-x-auto">
-                <table
-                    class="w-full text-center border-collapse border border-slate-500 
-                text-sm text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="py-3 cursor-pointer border border-slate-600"
-                                wire:click="ordenar('fecha')">
-                                <i class="fas fa-sort mr-2"></i> Fecha y Hora
-                            </th>
-                            <th scope="col" class="py-3 cursor-pointer border border-slate-600"
-                                wire:click="ordenar('tipo')">
-                                <i class="fas fa-sort mr-2"></i> Tipo
-                            </th>
-                            <th scope="col" class="py-3 border border-slate-600">
-                                Nombre de Usuario
-                            </th>
-                            <th scope="col" class="py-3 border border-slate-600">
-                                Acciones
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($citas as $item)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <td class="py-4 border border-slate-700">
-                                    <!--En la base de datos la fecha la tengo guardada con una T
-                                    como separador, para que el usuario no vea la T me creo una variable
-                                    en la que guardo la T y con el str_replace la elimino
-                                    y pongo un espacio vacío-->
-                                    <?php
-                                    $letras = ['T'];
-                                    $item->fecha = str_replace($letras, ' ', $item->fecha);
-                                    ?>
-                                    {{ $item->fecha }}
-                                </td>
-                                <td class="py-4 border border-slate-700">
-                                    {{ $item->tipo }}
-                                </td>
-                                <td class="py-4 border border-slate-700">
-                                    <p class="px-2 py-2 rounded-md text-gray-400 font-bold">
-                                        {{ $item->user->name }}</p>
-                                </td>
-                                <td class="py-4 border border-slate-700">
+        <!--En este caso meto un overflow a la tabla ya que es demasiado grande, ahora al hacer scroll
+        en modo móvil se moverá la tabla sin afectar a toda la página-->
+        <article style="overflow: auto">
+            <table id="citas"
+                class="display text-center dark:text-white border border-slate-700 bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                style="width:100%">
+                <thead>
+                    <tr class="border border-slate-700 dark:border-slate-300">
+                        <th class="border border-slate-700 dark:border-slate-300">Fecha y Hora</th>
+                        <th class="border border-slate-700 dark:border-slate-300">Tipo</th>
+                        <th class="border border-slate-700 dark:border-slate-300">Nombre</th>
+                        <th class="border border-slate-700 dark:border-slate-300">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($citas as $item)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <td class="py-4 border border-slate-700 dark:border-slate-300">
+                                <!--En la base de datos la fecha la tengo guardada con una T
+                                como separador, para que el usuario no vea la T me creo una variable
+                                en la que guardo la T y con el str_replace la elimino
+                                y pongo un espacio vacío-->
+                                <?php
+                                $letras = ['T'];
+                                $item->fecha = str_replace($letras, ' ', $item->fecha);
+                                ?>
+                                {{ $item->fecha }}
+                            </td>
+                            <td class="py-4 border border-slate-700 dark:border-slate-300">
+                                {{ $item->tipo }}
+                            </td>
+                            <td class="py-4 border border-slate-700 dark:border-slate-300">
+                                {{ $item->user->name }}
+                            </td>
+                            <td class="py-4 border border-slate-700 dark:border-slate-300">
+                                <span @class([
+                                    'px-2 rounded-xl dark:bg-gray-500 bg-white
+                                    dark:text-white border border-slate-700',
+                                ])>
                                     <button data-tooltip-target="tooltip-borrarCita"
                                         wire:click="confirmar('{{ $item->id }}')" wire:loading.attr="disabled"
                                         title="Borrar Cita">
@@ -102,15 +92,13 @@
                                         Editar Cita
                                         <div class="tooltip-arrow" data-popper-arrow></div>
                                     </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="mt-2">
-                    {{ $citas->links() }}
-                </div>
-            </article>
+                                </span>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </article>
         @else
             <p class="font-bold italic text-red-600">No se encontró ninguna cita o no se ha creado ninguna</p>
         @endif
@@ -134,7 +122,7 @@
             <x-slot name="footer">
                 <div class="flex flex-row-reverse">
                     <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        wire:click="$set('openEditar', false)">
+                        wire:click="cerrar()">
                         <i class="fas fa-xmark mr-2"></i>Cancelar
                     </button>
                     <button class="mr-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
@@ -145,4 +133,14 @@
             </x-slot>
         </x-dialog-modal>
     </main>
+    <!--Realizo el script del Datatable-->
+    <script>
+        $(document).ready(function() {
+            var table = $('#citas').DataTable({
+                    responsive: true
+                })
+                .columns.adjust()
+                .responsive.recalc();
+        });
+    </script>
 </x-miscomponentes.tablas>

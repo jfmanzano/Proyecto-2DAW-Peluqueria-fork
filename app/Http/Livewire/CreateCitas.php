@@ -54,10 +54,7 @@ class CreateCitas extends Component
             'tipo'=>$this->tipo,
             'user_id'=>auth()->user()->id
         ]);
-
-        $this->reset(["openCrear","fecha","tipo"]);
-        $this->emitTo("show-citas","refreshCitas");
-        $this->emit("mensaje", "Cita Creada");
+        return redirect()->route("citas.show")->with("info", "Categoría Creada");
     }
 
     // Función para cerrar la ventana modal si se pulsa el botón cancelar
