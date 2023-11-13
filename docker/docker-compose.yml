@@ -1,0 +1,140 @@
+
+version: '3'
+services:
+    apache:
+        depends_on:
+          - php
+        build:
+            context: ./apache
+            args:
+                - APACHE_PORT=${APACHE_PORT}
+                - UID=${UID}
+                - USERNAME=${USERNAME}
+                - USER_HOME_FOLDER=${USER_HOME_FOLDER}
+                - GID=${GID}
+                - GROUPNAME=${GROUPNAME}
+                - APP_DIR=${APP_DIR}
+                - FILES_OWNER_UID=${FILES_OWNER_UID}
+                - FILES_OWNER_NAME=${FILES_OWNER_NAME}
+        image: apache-${COMPOSE_PROJECT_NAME}:1.0.3
+        logging:
+            driver: "json-file"
+            options:
+                max-file: "10"
+                max-size: "80m"
+                compress: "true"
+        container_name: apache-${COMPOSE_PROJECT_NAME}
+        ports:
+            - ${APACHE_PORT}:${APACHE_PORT}
+            - 443:443
+        volumes:
+            - ./ping.txt:${APP_DIR}/public/ping.txt
+            - ../src:${APP_DIR}
+           # - ./ssl/:/etc/ssl
+        networks:
+            - ${COMPOSE_PROJECT_NAME}
+        environment:
+            - APACHE_PORT=${APACHE_PORT}
+            - PHP_IP=php
+            - PHP_PORT=${PHP_PORT}
+            - UID=${UID}
+            - USERNAME=${USERNAME}
+            - USER_HOME_FOLDER=${USER_HOME_FOLDER}
+            - GID=${GID}
+            - GROUPNAME=${GROUPNAME}
+            - APP_DIR=${APP_DIR}
+            - FILES_OWNER_UID=${FILES_OWNER_UID}
+            - FILES_OWNER_NAME=${FILES_OWNER_NAME}
+        restart: "always"
+        healthcheck:
+            test: ["CMD", "curl", "-s", "-X", "GET", "http://127.0.0.1:${APACHE_PORT}/ping.txt"]
+            interval: 30s
+            timeout: 5s
+            retries: 3
+    php:
+        build:
+            context: ./php
+            args:
+                - XDEBUG_INI=/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+                - PHP_PORT=${PHP_PORT}
+                - UID=${UID}
+                - USERNAME=${USERNAME}
+                - USER_HOME_FOLDER=${USER_HOME_FOLDER}
+                - GID=${GID}
+                - GROUPNAME=${GROUPNAME}
+                - APP_DIR=${APP_DIR}
+                - FILES_OWNER_UID=${FILES_OWNER_UID}
+                - FILES_OWNER_NAME=${FILES_OWNER_NAME}
+        image: ${PHP_IMAGE_NAME_AND_VERSION}
+        logging:
+            driver: "json-file"
+            options:
+                max-file: "3"
+                max-size: "2m"
+                compress: "true"
+        container_name: php-${COMPOSE_PROJECT_NAME}
+        volumes:
+            - ./protect-project-files.sh:/protect-project-files.sh
+            - ./ping.php:${APP_DIR}/ping.php
+            - ../src:${APP_DIR}
+
+        networks:
+            - ${COMPOSE_PROJECT_NAME}
+        environment:
+            - XDEBUG_ENABLED=${XDEBUG_ENABLED}
+            - XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
+            - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
+            - UID=${UID}
+            - USERNAME=${USERNAME}
+            - USER_HOME_FOLDER=${USER_HOME_FOLDER}
+            - GID=${GID}
+            - GROUPNAME=${GROUPNAME}
+            - APP_DIR=${APP_DIR}
+            - FILES_OWNER_UID=${FILES_OWNER_UID}
+            - FILES_OWNER_NAME=${FILES_OWNER_NAME}
+            - PHP_PORT=${PHP_PORT}
+        restart: "always"
+        healthcheck:
+            test: ["CMD", "bash", "-c", "SCRIPT_NAME=/ping.php SCRIPT_FILENAME=${APP_DIR}/ping.php REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:${PHP_PORT}"]
+            interval: 30s
+            timeout: 5s
+            retries: 3
+    mysql:
+        image: mysql:8.0
+        container_name: mysql-${COMPOSE_PROJECT_NAME}
+        networks:
+            - ${COMPOSE_PROJECT_NAME}
+        ports:
+            - ${MYSQL_PORT}:3306
+        environment:
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - TZ=Europe/Madrid
+        volumes:
+            - mysql-${COMPOSE_PROJECT_NAME}:/var/lib/mysql
+            - ./my.cnf:/etc/mysql/conf.d/my.cnf
+        restart: "always"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        container_name: phpmyadmin-${COMPOSE_PROJECT_NAME}
+        networks:
+            - ${COMPOSE_PROJECT_NAME}
+        links:
+            - mysql
+        ports:
+            - 8290:80
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+        depends_on:
+            - mysql
+        restart: "always"
+networks:
+    webservice:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: ${NETWORK_SUBNET}
+volumes:
+    mysql-webservice:
+        external: true

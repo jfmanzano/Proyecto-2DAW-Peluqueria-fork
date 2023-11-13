@@ -1,0 +1,29 @@
+
+Host malefica
+	User gmatik
+	Hostname 192.168.2.15
+	Port 22
+
+Host scar
+    Hostname 10.10.10.110
+    Port 22
+    User gmatik
+    Proxycommand ssh malefica nc %h %p
+
+Host sargento
+    Hostname 10.10.10.113
+    Port 22
+    User gmatik
+    Proxycommand ssh malefica nc %h %p
+
+Host timon
+    Hostname 10.10.10.39
+    Port 22
+    User gmatik
+    Proxycommand ssh malefica nc %h %p
+
+Host timonel
+    Hostname 10.10.10.112
+    Port 22
+    User gmatik
+    Proxycommand ssh malefica nc %h %p
